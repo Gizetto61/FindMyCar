@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>FindMyCar</title>
+  <link rel="stylesheet" href="/home/estudante1/Documentos/Código/Front-End/Styles/styles.css" />
+  <script>
+    function toggleProfileMenu() {
+      const menu = document.getElementById("profileMenu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+  
+    // Fecha o menu ao clicar fora
+    window.addEventListener('click', function(e) {
+      const menu = document.getElementById("profileMenu");
+      const wrapper = document.querySelector(".profile-wrapper");
+      if (!wrapper.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="logo">FindMyCar</div>
+      
+        <nav class="nav-links">
+          <a href="#">Home</a>
+          <a href="#">Ficha</a>
+          <a href="#">Testes</a>
+          <a href="#">Carros</a>
+          <a href="#">Sobre</a>
+          <a href="#">Contato</a>
+        </nav>
+      
+        <div class="profile-area">
+            <div class="profile-wrapper" onclick="toggleProfileMenu()">
+              <span class="profile-icon">👤</span>
+              <div class="profile-menu" id="profileMenu">
+                <a href="#">Minha conta</a>
+                <a href="#">Configurações</a>
+                <a href="#">Sair</a>
+              </div>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">☰</div>
+          </div>
+      </header>
+      
+    <div class="container">
+        <section class="car-highlight">
+            <div class="highlight-left">
+              <h2>Mais recomendado</h2>
+              <img src="/home/estudante1/Documentos/Código/Imagens/Corolla_lado.png" alt="Toyota Corolla Lado" class="highlight-image">
+              <h1>Toyota Corolla XEi <span>2025</span></h1>
+              <p class="car-id">#9761</p>
+              <p class="price">Preço médio<br><span class="highlight-price">R$ 165.890,00</span></p>
+              <a href="#" class="button">Ver ficha técnica</a>
+              <img src="/home/estudante1/Documentos/Código/Imagens/Corolla.png" alt="Toyota Corolla Frente" class="car-front-image">
+            </div>
+          </section>
+
+    <section class="retake-test">
+        <h3>Refazer Teste</h3>
+        <p class="title">Gostaria de refazer o teste?</p>
+        <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
+        <a href="#" class="button">Faça agora</a>
+    </section>
+    
+
+    <section class="recommendations">
+        <h3>Outras recomendações</h3>
+        <div class="car-list">
+        <div class="car-card">
+            <img src="/home/estudante1/Documentos/Código/Imagens/GTR.png" alt="Nissan GT-R">
+            <h4>Nissan GT - R</h4>
+            <p>Esporte - 2025</p>
+            <p>2° recomendação</p>
+        </div>
+        <div class="car-card">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Jetsko.png" alt="Koenigsegg">
+            <h4>Koenigsegg</h4>
+            <p>Esporte</p>
+        </div>
+        <div class="car-card">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Rolls.png" alt="Rolls-Royce">
+            <h4>Rolls-Royce</h4>
+            <p>Conversível</p>
+        </div>
+        <div class="car-card">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Touareg.png" alt="CR-V">
+            <h4>CR-V</h4>
+            <p>SUV</p>
+            <p>Conforto Perfeito</p>
+        </div>
+        </div>
+    </section>
+
+    <section class="ratings">
+        <h3>Avaliações</h3>
+        <ul>
+          <li>Interior: <span class="blue-star">⭐</span> 5.0</li>
+          <li>Exterior: <span class="blue-star">⭐</span> 4.0</li>
+          <li>Preço: <span class="blue-star">⭐</span> 4.0</li>
+          <li>Performance: <span class="blue-star">⭐</span> 5.0</li>
+          <li>Manutenção: <span class="blue-star">⭐</span> 4.0</li>
+        </ul>
+        <p class="year">2018</p>
+      </section>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h4>Sobre</h4>
+            <p>
+              A FindMyCar conecta você ao carro ideal com base em seu estilo, uso e preferências. Nosso sistema de recomendação facilita sua escolha com inteligência e praticidade.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h4>Links rápidos</h4>
+            <ul>
+              <li><a href="#">Início</a></li>
+              <li><a href="#">Recomendações</a></li>
+              <li><a href="#">Comparar carros</a></li>
+              <li><a href="#">Refazer teste</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Marcas</h4>
+            <ul>
+              <li><a href="#">Toyota</a></li>
+              <li><a href="#">Nissan</a></li>
+              <li><a href="#">Koenigsegg</a></li>
+              <li><a href="#">Rolls-Royce</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Tipos</h4>
+            <ul>
+              <li><a href="#">SUV</a></li>
+              <li><a href="#">Esporte</a></li>
+              <li><a href="#">Conversível</a></li>
+              <li><a href="#">Hatchback</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
+        </div>
+      </footer>      
+</body>
+</html>
