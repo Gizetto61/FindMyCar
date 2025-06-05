@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>FindMyCar</title>
-  <link rel="stylesheet" href="/home/estudante1/FindMyCar/Código/Front-End/Styles/recomendacao.css" />
+  <link rel="stylesheet" href="../Styles/recomendacao.css" />
   <script>
     function toggleProfileMenu() {
       const menu = document.getElementById("profileMenu");
@@ -20,39 +20,6 @@
         menu.style.display = "none";
       }
     });
-
-    function carroRecomendado() {
-      const carroRecomendado = {
-        nome: "Toyota Corolla XEI",
-        ano: 2025,
-        id: "#9761",
-        preco: "R$ 165.890,00",
-        imagemLado: "Imagens/Corolla_lado.png",
-        imagemFrente: "Imagens/Corolla.png",
-        conforto: 5.0,
-        espaco: 4.0,
-        preco2: 4.0,
-        desempenho: 5.0,
-        manutencao: 4.0,
-        consumo: 4.0
-      };
-    }
-
-    const carroRecomendado = JSON.parse(localStorage.getItem('carroRecomendado'));
-    if (carroRecomendado) {
-      document.getElementById("carro-nome").childNodes[0].nodeValue = carroRecomendado.nome + " ";
-      document.getElementById("carro-ano").textContent = carroRecomendado.ano;
-      document.getElementById("carro-id").textContent = carroRecomendado.id;
-      document.getElementById("carro-preco").textContent = carroRecomendado.preco;
-      document.getElementById("imagem-lado").src = carroRecomendado.imagemLado;
-      document.getElementById("imagem-frente").src = carroRecomendado.imagemFrente;
-      document.getElementById("carro-conforto").textContent = carroRecomendado.conforto;
-      document.getElementById("carro-espaco").textContent = carroRecomendado.espaco;
-      document.getElementById("carro-preco2").textContent = carroRecomendado.preco2;
-      document.getElementById("carro-desempenho").textContent = carroRecomendado.desempenho;
-      document.getElementById("carro-manutencao").textContent = carroRecomendado.manutencao;
-      document.getElementById("carro-consumo").textContent = carroRecomendado.consumo;
-  }
   </script>
 </head>
 <body>
@@ -85,12 +52,12 @@
         <section class="car-highlight">
             <div class="highlight-left">
               <h2>Mais recomendado</h2>
-              <h1 id="carro-nome">Toyota Corolla XEi <span>2025</span></h1>
-              <p id="carro-id" class="car-id">#9761</p>
-              <p class="price">Preço médio<br><span id="carro-preco" class="highlight-price">R$ 165.890,00</span></p>
+              <img src="/home/estudante1/Documentos/Código/Imagens/Corolla_lado.png" alt="Toyota Corolla Lado" class="highlight-image">
+              <h1>Toyota Corolla XEi <span>2025</span></h1>
+              <p class="car-id">#9761</p>
+              <p class="price">Preço médio<br><span class="highlight-price">R$ 165.890,00</span></p>
               <a href="#" class="button">Ver ficha técnica</a>
-              <img id="imagem-lado" src="/home/estudante1/FindMyCar/Código/Imagens/Corolla_lado.png" alt="Toyota Corolla Lado" class="highlight-image">
-              <img id="imagem-frente" src="/home/estudante1/FindMyCar/Código/Imagens/Corolla.png" alt="Toyota Corolla Frente" class="car-front-image">
+              <img src="/home/estudante1/Documentos/Código/Imagens/Corolla.png" alt="Toyota Corolla Frente" class="car-front-image">
             </div>
           </section>
 
@@ -106,23 +73,23 @@
         <h3>Outras recomendações</h3>
         <div class="car-list">
         <div class="car-card">
-            <img src="/home/estudante1/FindMyCar/Código/Imagens/GTR.png" alt="Nissan GT-R">
+            <img src="/home/estudante1/Documentos/Código/Imagens/GTR.png" alt="Nissan GT-R">
             <h4>Nissan GT - R</h4>
             <p>Esporte - 2025</p>
             <p>2° recomendação</p>
         </div>
         <div class="car-card">
-            <img src="/home/estudante1/FindMyCar/Código/Imagens/Jetsko.png" alt="Koenigsegg">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Jetsko.png" alt="Koenigsegg">
             <h4>Koenigsegg</h4>
             <p>Esporte</p>
         </div>
         <div class="car-card">
-            <img src="/home/estudante1/FindMyCar/Código/Imagens/Rolls.png" alt="Rolls-Royce">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Rolls.png" alt="Rolls-Royce">
             <h4>Rolls-Royce</h4>
             <p>Conversível</p>
         </div>
         <div class="car-card">
-            <img src="/home/estudante1/FindMyCar/Código/Imagens/Touareg.png" alt="CR-V">
+            <img src="/home/estudante1/Documentos/Código/Imagens/Touareg.png" alt="CR-V">
             <h4>CR-V</h4>
             <p>SUV</p>
             <p>Conforto Perfeito</p>
@@ -133,12 +100,11 @@
     <section class="ratings">
         <h3>Avaliações</h3>
         <ul>
-          <li id="carro-conforto">Conforto: <span class="blue-star">⭐</span> 5.0</li>
-          <li id="carro-espaco">Espaço: <span class="blue-star">⭐</span> 4.0</li>
-          <li id="carro-preco2">Preço: <span class="blue-star">⭐</span> 4.0</li>
-          <li id="carro-desempenho">Desempenho: <span class="blue-star">⭐</span> 5.0</li>
-          <li id="carro-manutencao">Manutenção: <span class="blue-star">⭐</span> 4.0</li>
-          <li id="carro-consumo">Consumo: <span class="blue-star">⭐</span> 4.0</li>
+          <li>Interior: <span class="blue-star">⭐</span> 5.0</li>
+          <li>Exterior: <span class="blue-star">⭐</span> 4.0</li>
+          <li>Preço: <span class="blue-star">⭐</span> 4.0</li>
+          <li>Performance: <span class="blue-star">⭐</span> 5.0</li>
+          <li>Manutenção: <span class="blue-star">⭐</span> 4.0</li>
         </ul>
         <p class="year">2018</p>
       </section>
