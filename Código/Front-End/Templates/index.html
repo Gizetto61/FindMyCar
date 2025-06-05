@@ -141,7 +141,7 @@
                 },
                 progressPercentage() {
                     if (this.perguntas.length === 0) return 0;
-                    return ((this.i_pergunta_atual + 1) / this.perguntas.length) * 100;
+                    return ((this.i_pergunta_atual ) / this.perguntas.length) * 100;
                 },
                 progressLabel() {
                     return `${this.i_pergunta_atual + 1}/${this.perguntas.length}`;
