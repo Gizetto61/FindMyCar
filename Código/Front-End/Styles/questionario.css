@@ -78,24 +78,18 @@
   }
   
   /* Barra de progresso */
-  .progress-bar {
-    background: #e5e5e5;
-    border-radius: 10px;
-    height: 10px;
-    margin: 1rem 0;
-    width: 100%;
-    overflow: hidden;
-  }
-  .progress {
-    background-color: #3b82f6;
-    height: 100%;
-    transition: width 0.3s ease;
-  }
-  .progress-label {
-    font-size: 0.9rem;
-    color: #3b82f6;
-    font-weight: bold;
-  }
+#progressbar {
+  background-color: black;
+  border-radius: 13px;
+  padding: 3px;
+}
+
+#progressbar>div {
+  background-color: rgb(0, 110, 255);
+  width: 0%;
+  height: 20px;
+  border-radius: 30px;
+}
   
   /* Opções */
   .options {
@@ -104,7 +98,7 @@
     gap: 1rem;
     justify-content: center; 
     align-items: center; 
-    margin-top: 10px;
+    margin-top: 20px;
 }
   
   .option {
@@ -115,7 +109,7 @@
     height: 90px;
     padding: 1rem;
     border-radius: 10px;
-    font-size: 1.2rem;
+    font-size: 2.0rem;
     font-weight: bold;
     border: 2px solid #ccc;
     background: white;
@@ -168,7 +162,7 @@ footer {
     list-style: none;
   }
   .footer-columns li {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 0.25rem;
   }
   .newsletter {
