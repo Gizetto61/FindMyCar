@@ -1,0 +1,32 @@
+flowchart LR
+ subgraph s1["**Sua Aplicação Web Completa**"]
+    direction LR
+        Frontend_Label["Frontend - HTML, CSS, JavaScript"]
+        Frontend("Navegador")
+        Backend_Label["Backend - Python/Flask"]
+        Backend("Servidor")
+        Database_Label["Banco de Dados - MySQL"]
+        Database("DB")
+        GoogleIdentity("Google")
+        API["API de carros"] -- Manda os dados solicitados--> Backend
+        Backend -- pede dados dos carros --> API  
+        Backend -- Mantém os dados --> Database
+
+  end
+    GoogleIdentity --> GoogleIdentityPlatform["Google Identity Platform - Serviço Externo de Autenticação"]
+    Frontend --> Frontend_Label
+    Backend --> Backend_Label
+    Database --> Database_Label
+    Frontend -- Requisições HTTP/JSON --> Backend
+    Backend -- Lê e Escreve dados --> Database
+    Frontend -- Requisição Login Local --> Backend
+    Backend -- Valida Credenciais --> Database
+    Frontend -- Inicia Login Google --> GoogleIdentity
+    GoogleIdentity -- Token de Autenticação --> Frontend
+    Frontend -- Envia Token para validação --> Backend
+    Backend -- Valida Token Google --> GoogleIdentity
+    Backend -- Armazena/Atualiza Usuário --> Database
+    User("Pessoa") -- Acessa Interface --> Frontend
+
+
+
