@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>FindMyCar - Teste de Recomendação</title>
-    <link rel="stylesheet" href="../Styles/questionario.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/questionario.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   
 </head>
 <body>
     <div id="app"></div>
@@ -14,22 +16,22 @@
     <script>
         new Vue({
             el: '#app',
+            delimiters: ['[[', ']]'],
             template: `
                 <div id="container">
-                    <header>
-                        <nav class="navbar">
-                            <div class="logo">FindMyCar</div>
-                            <ul class="nav-links">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Fórum</a></li>
-                                <li><a href="#">Teste</a></li>
-                                <li><a href="#">Carros</a></li>
-                                <li><a href="#">Sobre</a></li>
-                                <li><a href="#">Contato</a></li>
-                                <li><a href="#">Entrar</a></li>
-                                <li><button class="cta">Cadastrar-se</button></li>
-                            </ul>
+                    <header class="topbar">
+                        <div class="logo">FindMyCar</div>
+                    
+                        <nav class="nav-links">
+                        <a href="#">Home</a>
+                        <a href="#">Ficha</a>
+                        <a href="#">Testes</a>
+                        <a href="#">Carros</a>
+                        <a href="#">Sobre</a>
+                        <a href="#">Contato</a>
                         </nav>
+                    
+                        
                     </header>
 
                     <main class="quiz-container">
@@ -37,7 +39,7 @@
                         
                         <p class="progress-label">{{ progressLabel }}</p>
                         
-                        <h2>{{ perguntaAtual.desc_pergunta }}</h2>
+                        <h2>[[ perguntaAtual.desc_pergunta ]]</h2>
 
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" 
@@ -55,7 +57,7 @@
                                 :class="['option', getOptionColorClass(n)]"
                                 :data-value="n"
                             >
-                                {{ n }}<br><span>{{ getOptionDescription(n) }}</span>
+                                {{ n }}<br><span>[[ getOptionDescription(n) ]]</span>
                             </button>
                         </div>
                     </main>
@@ -125,9 +127,9 @@
                     perguntas: [
                         { numero_pergunta: 1, desc_pergunta: "O quanto o conforto interno importa na sua decisão?", resposta_pergunta: 0 },
                         { numero_pergunta: 2, desc_pergunta: "Qual a sua prioridade em termos de economia de combustível?", resposta_pergunta: 0 },
-                        { numero_pergunta: 3, desc_pergunta: "Com que frequência você viaja com a família ou amigos?", resposta_pergunta: 0 },
-                        { numero_pergunta: 4, desc_pergunta: "Qual o seu orçamento aproximado para um carro novo?", resposta_pergunta: 0 },
-                        { numero_pergunta: 5, desc_pergunta: "Quanto a tecnologia e recursos avançados importam para você?", resposta_pergunta: 0 },
+                        { numero_pergunta: 3, desc_pergunta: "Qual a importância do espaço de seu carro?", resposta_pergunta: 0 },
+                        { numero_pergunta: 4, desc_pergunta: "Qual a importância do preço de compra de um carro novo?", resposta_pergunta: 0 },
+                        { numero_pergunta: 5, desc_pergunta: "Qual a importância do preço de manutenção?", resposta_pergunta: 0 },
                     ],
                     i_pergunta_atual: 0,
                 }
@@ -150,12 +152,38 @@
             methods: {
                 responderPergunta: function(resposta) {
                     this.perguntas[this.i_pergunta_atual].resposta_pergunta = resposta;
+
                     if (this.i_pergunta_atual < this.perguntas.length - 1) {
-                        this.i_pergunta_atual++; 
+                        this.i_pergunta_atual++;
                     } else {
                         console.log("Todas as perguntas foram respondidas.");
                         console.log("Respostas Finais:", this.perguntas);
-                        window.location.href = 'recomendacao.html'
+
+                        // Montar o payload
+                        const payload = {
+                            conforto: this.perguntas[0].resposta_pergunta,
+                            consumo: this.perguntas[1].resposta_pergunta,
+                            tamanho: this.perguntas[2].resposta_pergunta,
+                            preco: this.perguntas[3].resposta_pergunta,
+                            manutencao: this.perguntas[4].resposta_pergunta
+                        };
+                        console.log(payload);
+
+                        // Enviar para o back-end
+                        fetch('/api/recomendar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            window.location.href = "/recomendacao";  // página que mostrará o resultado
+                        })
+                        .catch(error => {
+                            console.error('Erro ao obter recomendação:', error);
+                        });
                     }
                 },
                 getOptionColorClass(value) {

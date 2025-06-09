@@ -3,12 +3,15 @@
     margin: 0;
     padding: 0;
   }
+
+
   
 #container,html, body {
-    height: 100%;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+    
 }
 
 
@@ -25,64 +28,71 @@
     padding-bottom: 200px; 
 }
 
-  /* Header */
-  header {
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+
+    .topbar {
+    background-color: #748096;
+    color: #fff;
+    padding: 20px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 20px;
   }
   
-  /* Navbar responsiva */
-  .navbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  .logo {
+    font-weight: bold;
   }
   
   .nav-links {
-    list-style: none;
     display: flex;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 1rem;
   }
   
-  .nav-links a, .nav-links button {
+  .nav-links a {
+    color: #fff;
     text-decoration: none;
-    color: #333;
-    background: none;
-    border: none;
-    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s ease;
   }
   
-  .cta {
-    background-color: #1e40af;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+  .nav-links a:hover {
+    color: #cce4ff;
   }
-  
-  /* Quiz container */
-  .quiz-container {
-    max-width: 700px;
-    margin: 3rem auto;
+
+
+
+
+.quiz-container {
+    max-width: 1000px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2rem auto;
     background: white;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
     text-align: center;
-    width: 90%;
-  }
-  
-  /* Barra de progresso */
-#progressbar {
-  background-color: black;
-  border-radius: 13px;
-  padding: 3px;
 }
+
+.quiz-container h1,
+.quiz-container h2,
+.quiz-container .progress,
+.quiz-container .options {
+    margin-bottom: 4rem;
+}
+  
+
+.progress{
+  background-color: #dddddd !important; 
+  border-radius: 13px !important;
+}
+
 
 #progressbar>div {
   background-color: rgb(0, 110, 255);
@@ -92,40 +102,35 @@
 }
   
   /* Opções */
-  .options {
+.options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem;
-    justify-content: center; 
-    align-items: center; 
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.2rem;
     margin-top: 20px;
-}
+} 
   
-  .option {
-    flex: 1;
-    /*min-width: 90px;
-    max-width: 120px;*/
-    width: 100px;
-    height: 90px;
-    padding: 1rem;
-    border-radius: 10px;
-    font-size: 2.0rem;
-    font-weight: bold;
+.option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    padding: 10px;
+    font-size: 20px; /* valor principal */
+    background-color: white;
     border: 2px solid #ccc;
-    background: white;
+    border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-in-out;
+}
+
+.option span {
+    line-height: 1.3;
     text-align: center;
-    margin: 0 auto;
-  }
-  .option span {
-    display: block;
-    font-size: 0.75rem;
-    margin-top: 0.5rem;
-  }
-  .option:hover {
-    transform: scale(1.05);
-  }
+}
+
+.option:hover {
+    transform: scale(1.1);
+}
   
   /* Cores */
   .red { border-color: #dc2626; color: #dc2626; }
@@ -138,8 +143,7 @@
 footer {
     background-color: #0f172a;
     color: white;
-    padding: 1.5rem;
-    text-align: center;
+    padding: 0.5rem;
     z-index: 100;
 }
   
@@ -162,7 +166,6 @@ footer {
     list-style: none;
   }
   .footer-columns li {
-    font-size: 1.2rem;
     margin-bottom: 0.25rem;
   }
   .newsletter {
@@ -185,14 +188,14 @@ footer {
     border-radius: 6px;
   }
   .footer-bottom {
-    margin-top: 2rem;
-    font-size: 0.8rem;
+    font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
     border-top: 1px solid #334155;
     padding-top: 1rem;
     flex-wrap: wrap;
   }
+
   
   @media (max-width: 768px) {
     .navbar {
@@ -217,4 +220,6 @@ footer {
         display: block; 
         padding: 0.5rem; 
     }
+
+    
 }

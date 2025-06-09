@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>FindMyCar</title>
-  <link rel="stylesheet" href="../Styles/recomendacao.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/recomendacao.css') }}" />
   <script>
     function toggleProfileMenu() {
       const menu = document.getElementById("profileMenu");
@@ -49,53 +49,45 @@
       </header>
       
     <div class="container">
-        <section class="car-highlight">
-            <div class="highlight-left">
-              <h2>Mais recomendado</h2>
-              <img src="../../Imagens/Corolla_lado.png" alt="Toyota Corolla Lado" class="highlight-image">
-              <h1>Toyota Corolla XEi <span>2025</span></h1>
-              <p class="car-id">#9761</p>
-              <p class="price">Preço médio<br><span class="highlight-price">R$ 165.890,00</span></p>
-              <a href="#" class="button">Ver ficha técnica</a>
-              <img src="../../Imagens/Corolla.png" alt="Toyota Corolla Frente" class="car-front-image">
-            </div>
-          </section>
+      
+    <div id="app">
+    <section class="car-highlight" v-if="carros.length">
+      <div class="highlight-left">
+        <h2>Mais recomendado</h2>
+        <img src="{{ carro_principal['Imagem'] }}" class="highlight-image">
+        <h1>{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }} {{ carro_principal['Ano'] }}</h1>
+        <p class="car-id">#{{ carro_principal['id_Carro'] }}</p>
+        <p class="price">Preço médio<br><span class="highlight-price">R$ </span></p>
+        <a href="#" class="button">Ver ficha técnica</a>
+        
+        <img :src="'/static/images/' + carros[0].ImagemFrontal" class="car-front-image">
+        
+      </div>
+    </section>
 
     <section class="retake-test">
         <h3>Refazer Teste</h3>
         <p class="title">Gostaria de refazer o teste?</p>
         <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
-        <a href="index.html" class="button">Faça agora</a>
+        <a href="/questionario" class="button">Faça agora</a>
     </section>
     
 
-    <section class="recommendations">
-        <h3>Outras recomendações</h3>
-        <div class="car-list">
-        <div class="car-card">
-            <img src="../../Imagens/GTR.png" alt="Nissan GT-R">
-            <h4>Nissan GT - R</h4>
-            <p>Esporte - 2025</p>
-            <p>2° recomendação</p>
-        </div>
-        <div class="car-card">
-            <img src="../../Imagens/Jetsko.png" alt="Koenigsegg">
-            <h4>Koenigsegg</h4>
-            <p>Esporte</p>
-        </div>
-        <div class="car-card">
-            <img src="../../Imagens/Rolls.png" alt="Rolls-Royce">
-            <h4>Rolls-Royce</h4>
-            <p>Conversível</p>
-        </div>
-        <div class="car-card">
-            <img src="../../Imagens/Touareg.png" alt="CR-V">
-            <h4>CR-V</h4>
-            <p>SUV</p>
-            <p>Conforto Perfeito</p>
-        </div>
-        </div>
+    <section class="recommendations" v-if="carros.length > 1">
+      <h3>Outras recomendações</h3>
+      <div class="car-list">
+        {% for car in outros_carros %}
+      <div class="car-card">
+        <img src="{{ car['Imagem'] }}">
+        <h4>{{ car['Modelo'] }}</h4>
+        <p>{{ car['Marca'] }}</p>
+        <p>{{ loop.index + 1 }}° recomendação</p>
+      </div>
+    {% endfor %}   
+      </div>
     </section>
+
+  </div>
 
     <section class="ratings">
         <h3>Avaliações</h3>
@@ -123,7 +115,7 @@
               <li><a href="#">Início</a></li>
               <li><a href="#">Recomendações</a></li>
               <li><a href="#">Comparar carros</a></li>
-              <li><a href="#">Refazer teste</a></li>
+              <li><a href="/logout/questionario">Refazer teste</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -148,6 +140,8 @@
         <div class="footer-bottom">
           <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
         </div>
-      </footer>      
+      </footer>    
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
 </body>
 </html>

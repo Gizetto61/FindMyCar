@@ -1,0 +1,30 @@
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES 
+("Fusca", "1984", 4, 2, 5, "A", 2, "Volkswagen", 1, 2, 'https://estofariabrasil.com.br/wp-content/uploads/2020/10/fuca-miniatura-02.png'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES 
+("Bronco", "2024", 3, 2, 1, "A", 5, "Ford", 4, 5, 'https://www.ford.com.br/content/dam/Ford/website-assets/latam/br/nameplate/2022/bronco-sport/showroom/fbr-bronco-showroom-thumb.jpg'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES 
+("Fastback Abarth", "2025", 4, 2, 3, "A", 3, "Fiat", 4, 3, 'https://production.autoforce.com/uploads/version/profile_image/10165/comprar-turbo-270-at_4a6b5a8e4b.png'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("208 
+GT", "2025", 4, 2, 2, "A", 3, "Peugeot", 4, 3, 'https://production.autoforce.com/uploads/version/profile_image/11304/comprar-208-gt-turbo-200-cvt-24-25_953aace9f8.png'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES
+("Compass BlackHawk", "2025", 2, 2, 3, "A", 4, "Jeep", 5, 5, 'https://production.autoforce.com/uploads/version/profile_image/10890/comprar-blackhawk-hurricane_a45f1d3e63.png'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("Astra 
+SS", "2008", 3, 1, 4, "A", 3, "Chevrolet", 4, 3,'https://www.webmotors.com.br/tabela-fipe/_next/image?url=https%3A%2F%2Fwww.webmotors.com.br%2Fimagens%2Fprod%2F343874%2FCHEVROLET_ASTRA_2.0_MPFI_8V_FLEX_4P_AUTOMATICO_34387408053421842.webp&w=768&q=75'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("Up 
+TSI", "2018", 3, 4, 3, "A", 2, "Volkswagen", 4, 3, 'https://www.webmotors.com.br/imagens/prod/347324/VOLKSWAGEN_UP_1.0_TSI_PEPPER_12V_FLEX_4P_MANUAL_3473241040143618.png'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("Seal", 
+"2023", 4, 5, 2, "A", 4, "BYD", 5, 5, 'https://dealers.virtualyard.com.au/api/design/composit.php?key=U4_4GsGXOaVPZ7k3Y9PP2_mB048u-PkleWzR5wt2py9nqtQGg7vpZKxjfPDvpvixmiRl-eQBsCTCcvEHWZ8SFQ&m=1643-1633-1862-1645&t=colour&o=1'); 
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("458 
+Italia", "2015", 1, 1, 1, "A", 1, "Ferrari", 5, 5,'https://platform.cstatic-images.com/in/v2/stock_photos/9a61d506-9955-4edd-8e50-53fdca84df00/bd605b49-db49-4885-bbc0-660f76e24702.png');
+INSERT INTO Carro (Modelo, Ano, Preco, Consumo, Manutencao, 
+Origem, Espaco, Marca, Desempenho, Conforto, Imagem) VALUES ("X6M", 
+"2025", 2, 3, 2, "A", 5, "BMW", 5, 5, "https://production.autoforce.com/uploads/version/profile_image/10421/comprar-4-4-v8_3b19bc0e35.png");
