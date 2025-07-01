@@ -12,8 +12,21 @@ Este repositório contém um projeto desenvolvido com **Flask** como back-end. S
 ## ⚙️ Requisitos
 
 - [Python](https://www.python.org/) instalado (recomenda-se a versão 3.13)
+- [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) instalado no seu sistema
 
 ---
+
+## 🛢️ Instalando o MySQL
+
+1. Acesse o site oficial do MySQL:  
+   👉 [https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)
+
+2. Faça o download da versão compatível com o seu sistema operacional.
+
+3. Após instalar, certifique-se de que o serviço do MySQL está em execução.
+
+---
+
 
 ## 🚀 Passo a Passo para Executar o Projeto
 
