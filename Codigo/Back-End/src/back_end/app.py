@@ -8,10 +8,11 @@ app.secret_key = 'rochakkj.'
 
 def get_carros():
     conn = mysql.connector.connect(
-        host="localhost",
+        host="switchyard.proxy.rlwy.net",
+        port=41357,
         user="root",
-        password="1234",
-        database="FindMyCar"
+        password="EHnlBexYxFZuogtSOZHuvNloklbjNFqt",
+        database="railway"
     )
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM Carro")
@@ -78,7 +79,7 @@ def recomendar_api():
             valor_carro = carro.get(chave.capitalize())
             if valor_carro is None:
                 continue
-            proximidade = 1 - abs(preferencia - valor_carro) / 4
+            proximidade = 1 - abs(preferencia - int(valor_carro)) / 4
             score += proximidade
 
         resultados.append({'carro': carro, 'score': score})
