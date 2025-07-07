@@ -44,6 +44,8 @@ pip --version
 python -m venv venv
 venv\Scripts\activate
 ```
+Caso de erro ao fazer o comando acima seguir essa resposta do stackoverflow:
+[Erro script](https://pt.stackoverflow.com/questions/220078/o-que-significa-o-erro-execu%C3%A7%C3%A3o-de-scripts-foi-desabilitada-neste-sistema)
 ### 3. Baixar as dependências
 Dentro do ambiente virtual digitar estes comandos um por um:
 ```bash
