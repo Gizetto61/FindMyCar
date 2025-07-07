@@ -1,0 +1,14 @@
+
+/* Custom scrollbar for car cards explore section */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/* Focus visible for accessibility */
+button:focus-visible, a:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}

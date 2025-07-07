@@ -22,10 +22,17 @@ def get_carros():
     return carros
 
 
+@app.route("/homepage")
+def homepage():
+    return render_template("homepage.html")
+
+@app.route("/home")
+def home():
+    return redirect(url_for("homepage"))
+
 @app.route("/")
-def landingpage():
-    get_carros()
-    return redirect(url_for("questionario"))
+def start():
+    return redirect(url_for("home"))
 
 
 @app.route("/questionario", methods=['GET', 'POST'])
