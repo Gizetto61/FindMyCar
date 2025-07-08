@@ -39,12 +39,20 @@ python --version
 pip --version
 ```
 
-### 2. Ative o ambiente virtual dessa maneira
+### 2. Clone o repositório do github
+```bash
+git clone https://github.com/Gizetto61/FindMyCar.git
+cd findmycar
+```
+
+### 3. Ative o ambiente virtual dessa maneira
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
-### 3. Baixar as dependências
+Caso de erro ao fazer o comando acima seguir essa resposta do stackoverflow:
+[Erro script](https://pt.stackoverflow.com/questions/220078/o-que-significa-o-erro-execu%C3%A7%C3%A3o-de-scripts-foi-desabilitada-neste-sistema)
+### 4. Baixar as dependências
 Dentro do ambiente virtual digitar estes comandos um por um:
 ```bash
 pip install flask
@@ -56,7 +64,7 @@ pip install mysql-connector-python
 pip install requests
 ```
 
-### 4. Executar o projeto
+### 5. Executar o projeto
 Com tudo instalado, você pode rodar o servidor Flask com um dos seguintes comandos:
 ```bash
 python app.py
