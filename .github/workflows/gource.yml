@@ -1,0 +1,44 @@
+name: Criar vídeo de Gource
+on:
+  schedule:
+    - cron: '0 0 * * 1' # Roda toda segunda antes da aula rs
+  workflow_dispatch:
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+        
+      - name: gource
+        uses: nbprojekt/gource-action@v1
+        with:
+          args: '--key'
+          gource_title: 'MyMed Front-end'
+          gource_resolution: '1080p'
+          avatars_auto_fetch: true
+          gource_time_scale: 0.5
+          gource_fps: 60
+          gource_font_size: 40
+  
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gource
+          path: ./gource/gource.mp4
+
+      - name: Fazer commit do arquivo ao repositório
+        run: |
+              git config --local user.email "action@github.com"
+              git config --local user.name "GitHub Action"
+              git add .
+              git commit -m "feat(docs): adicionar arquivo de gource"
+              
+      - name: push changes
+        continue-on-error: true
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          branch: main
