@@ -1,18 +1,36 @@
 from flask import Flask, render_template, redirect, url_for, request, jsonify, session, flash
 import mysql.connector
+from authlib.integrations.flask_client import OAuth
+from os import environ as env
+from dotenv import find_dotenv, load_dotenv
+from urllib.parse import quote_plus, urlencode
+
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
 app = Flask(__name__)
+app.secret_key = env.get("APP_SECRET_KEY")
 
-app.secret_key = 'rochakkj.'
+oauth = OAuth(app)
+oauth.register(
+    name = 'google',
+    client_id=env.get("AUTH0_CLIENT_ID"),
+    client_secret=env.get("AUTH0_CLIENT_SECRET"),
+    client_kwargs={
+        "scope": "openid profile email",
+    },
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
+)
 
 
 def get_carros():
     conn = mysql.connector.connect(
-        host="switchyard.proxy.rlwy.net",
-        port=41357,
-        user="root",
-        password="EHnlBexYxFZuogtSOZHuvNloklbjNFqt",
-        database="railway"
+        host=env.get("MYSQL_HOST"),
+        port=env.get("MYSQL_PORT"),
+        user=env.get("MYSQL_USER"),
+        password=env.get("MYSQL_PASSWORD"),
+        database=env.get("MYSQL_DATABASE")
     )
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM Carro")
@@ -34,11 +52,43 @@ def home():
 def start():
     return render_template("homepage.html")
 
+@app.route("/cadastro")
+def cadastro():
+    return redirect(url_for("login"))
+
+@app.route('/login')
+def login():
+    redirect_uri = url_for('authorize', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+@app.route('/authorize')
+def authorize():
+    token = oauth.google.authorize_access_token()
+    #print(token['userinfo'])
+    session['user'] = token['userinfo']
+    return redirect(url_for('questionario'))
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(
+        "https://"
+        + env.get("AUTH0_DOMAIN")
+        + "/v2/logout?"
+        + urlencode(
+            {
+                "returnTo": url_for("start", _external=True),
+                "client_id": env.get("AUTH0_CLIENT_ID"),
+            },
+            quote_via=quote_plus,
+        )
+    )
 
 @app.route("/questionario", methods=['GET', 'POST'])
 def questionario():
-
-    return render_template("questionario.html")
+    if 'user' in session:
+        return render_template("questionario.html")
+    return redirect(url_for("login"))
 
 
 @app.route('/recomendacao')
