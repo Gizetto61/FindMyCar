@@ -6,14 +6,13 @@
 
 
   
-#container,html, body {
+html, body,#app{
   height: 100%;
   font-family: 'Plus Jakarta Sans', sans-serif;
   display: flex;
   flex-direction: column;
-    
+  overflow-x: hidden;
 }
-
 
   /* Wrapper ocupa o espaço entre header e footer */
   .wrapper {
@@ -66,7 +65,7 @@
 
 
 
-.quiz-container {
+.quiz_container {
     max-width: 1000px;
     width: 70%;
     display: flex;
@@ -80,13 +79,17 @@
     text-align: center;
 }
 
-.quiz-container h1,
-.quiz-container h2,
-.quiz-container .progress,
-.quiz-container .options {
+.quiz_container h1,
+.quiz_container h2,
+.quiz_container .progress,
+.quiz_container .options {
     margin-bottom: 4rem;
 }
   
+input#input-email::placeholder{
+  color: rgba(255, 255, 255, 0.685);
+
+}
 
 .progress{
   background-color: #dddddd !important; 
@@ -195,6 +198,7 @@ footer {
     padding-top: 1rem;
     flex-wrap: wrap;
   }
+
 
   
   @media (max-width: 768px) {
