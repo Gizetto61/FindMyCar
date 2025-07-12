@@ -6,48 +6,40 @@
   <title>FindMyCar - Encontre seu carro ideal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+
 </head>
 <body class="bg-white text-gray-900 font-sans">
 
 
 
-<nav class="navbar navbar-expand-md navbar-dark py-4" style="background-color: rgba(95, 103, 116, 0.90); backdrop-filter: blur(6px);">
-  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
-    <!-- Menu à esquerda -->
-    <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0">
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-50" href="/">Home</a>
+<nav class="bg-gray-700 bg-opacity-80 backdrop-blur-sm py-4 sticky top-0 z-50">
+  <div class="container mx-auto flex items-center justify-between px-4 md:px-8">
+    <ul class="hidden md:flex gap-8 text-gray-300 text-base font-medium">
+      <li><a href="/" class="hover:text-white">Home</a></li>
+      <li><a href="/ficha" class="hover:text-white">Ficha</a></li>
+      <li><a href="/carros" class="hover:text-white">Carros</a></li>
+      <li class="relative group">
+        <a href="/questionario" class="hover:text-white">Teste</a>
+        <ul class="absolute left-0 top-full mt-2 w-40 bg-gray-900 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-gray-200 text-sm">
+          <li><a href="/questionario" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste simples</a></li>
+          <li><a href="/teste-avancado" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste avançado</a></li>
+        </ul>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-50" href="/ficha">Ficha</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-50" href="/carros">Carros</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-50" href="/questionario">Teste</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-50" href="/sobre">Sobre</a>
-      </li>
+      <li><a href="/sobre" class="hover:text-white">Sobre</a></li>
     </ul>
 
-    <!-- Logo central -->
-    <a class="navbar-brand order-1 order-md-2 fw-semibold mx-auto" href="#">FindMyCar</a>
+    <a href="#" aria-label="FindMyCar Logo" class="text-white text-xl font-semibold mx-auto md:mx-0 select-none">FindMyCar</a>
 
-    <!-- Botões à direita -->
-    <div class="d-flex align-items-center gap-2 order-3 mt-2 mt-md-0">
-      <!-- Login com ícone claro e transparente -->
-      <button type="button" class="btn btn-link d-flex align-items-center gap-2 text-decoration-none" style="color: rgba(255, 255, 255, 0.8);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+    <div class="flex items-center gap-3 text-gray-100 text-base">
+  <button type="button" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-400" aria-label="Login">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+</svg>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A12.044 12.044 0 0112 15c2.28 0 4.392.704 6.06 1.904M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         Login
-      </button>
-      <!-- Cadastre-se arredondado -->
-      <button type="button" class="btn text-white" style="background-color: rgba(95, 103, 116, 0.90); border-radius: 999px;">
-        Cadastre-se
-      </button>
+    </button>
+      <button class="border border-white rounded-full px-4 py-2 text-white text-base hover:bg-white hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">Cadastre-se</button>
     </div>
   </div>
 </nav>
@@ -505,4 +497,3 @@
 </body>
 </html>
  
-
