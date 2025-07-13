@@ -6,6 +6,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>FindMyCar</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/recomendacao.css') }}" />
+  <link rel="stylesheet" href="../static/styles/recomendacao.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
   <script>
     function toggleProfileMenu() {
       const menu = document.getElementById("profileMenu");
@@ -38,7 +40,7 @@
       
         <div class="profile-area">
             <div class="profile-wrapper" onclick="toggleProfileMenu()">
-              <span class="profile-icon">👤</span>
+              <span class="profile-icon"></span>
               <div class="profile-menu" id="profileMenu">
                 <a href="#">Minha conta</a>
                 <a href="#">Configurações</a>
@@ -140,7 +142,7 @@
           <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
         </div>
       </footer>    
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  
 
 </body>
 </html>

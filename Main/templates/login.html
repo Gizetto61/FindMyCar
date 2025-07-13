@@ -68,7 +68,7 @@
 
     .form-box button {
       width: 100%;
-      background-color: #9099b8;
+      background-color: #7E8A9C;
       color: white;
       padding: 0.9rem;
       border: none;
@@ -88,6 +88,36 @@
       color: #5d5de0;
       text-decoration: none;
     }
+
+    .google-login-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      text-decoration: none;
+      font-family: 'Segoe UI', sans-serif;
+      color: #444;
+      font-size: 1rem;
+      transition: background-color 0.2s, box-shadow 0.2s;
+      margin-top: 15px;
+    }
+
+    .google-login-button:hover {
+      background-color: #f1f1f1;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .google-login-button img {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.8rem;
+    }
+    
   </style>
 </head>
 <body>
@@ -104,7 +134,10 @@
       <input v-model="senha" type="password" placeholder="Senha">
 
       <button @click="login">Entrar</button>
-      <a href="/login/google"><button>Google</button></a>
+      <a href="/login/google" class="google-login-button">
+        <img src="../static/images/7123025_logo_google_g_icon.png" alt="Google logo">
+        <span>Login com Google</span>
+      </a>
 
       <div class="form-footer">
         Não tem conta? <a href="/cadastro">Cadastre-se</a>
