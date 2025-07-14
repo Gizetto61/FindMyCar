@@ -14,6 +14,11 @@ html, body,#app{
   overflow-x: hidden;
 }
 
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  /* Outros estilos do body */
+}
+
   /* Wrapper ocupa o espaço entre header e footer */
   .wrapper {
     display: flex;

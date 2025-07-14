@@ -3,10 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <title>FindMyCar - Teste de Recomendação</title>
     <link
       rel="stylesheet"
@@ -25,43 +23,35 @@
 </style>
   <body>
     <div id="app">
-<nav class="navbar navbar-expand-md navbar-dark py-3" style="background-color: rgb(95, 103, 116); backdrop-filter: blur(6px);">
-  <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
-    <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0">
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-75" href="/">Home</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-75" href="/ficha">Ficha</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-75" href="/carros">Carros</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-75" href="/questionario">Teste</a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link text-white-75" href="/sobre">Sobre</a>
-      </li>
-    </ul>
+        <nav class="navbar navbar-expand-md navbar-dark py-3" style="background-color: rgb(95, 103, 116); backdrop-filter: blur(6px);">
+            <div class="container-fluid px-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0">
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white-75" href="/">Home</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white-75" href="/ficha">Ficha</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white-75" href="/carros">Carros</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white-75" href="/questionario">Teste</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link text-white-75" href="/sobre">Sobre</a>
+                    </li>
+                </ul>
 
-    <a class="navbar-brand order-1 order-md-2 fw-semibold mx-auto" href="#">FindMyCar</a>
+                <a class="navbar-brand order-1 order-md-2 fw-semibold mx-auto" href="#">FindMyCar</a>
 
-    <div class="d-flex align-items-center gap-2 order-3 mt-2 mt-md-0">
-
-      <button type="button" class="btn btn-link d-flex align-items-center gap-2 text-decoration-none" style="color: rgba(255, 255, 255, 0.8);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-        </svg>
-        Login
-      </button>
-
-      <button type="button" class="btn text-white" style="background-color: rgba(95, 103, 116, 0.9); border-radius: 999px; border: 1px solid white;">
-        Cadastre-se
-      </button>
-    </div>
-  </div>
-</nav>
+                <div class="d-flex align-items-center gap-2 order-3 mt-2 mt-md-0">
+                    <button type="button" class="btn text-white" style="background-color: rgba(95, 103, 116, 0.9);">
+                        {{session['user']['email']}}
+                    </button>
+                </div>
+            </div>
+        </nav>
 
       <main class="quiz_container">
         <h1>Teste de Recomendação</h1>
@@ -91,98 +81,97 @@
         </div>
       </main>
 
-<style>
-  footer input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-    opacity: 1;
-  }
-</style>
+    <style>
+      footer input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        opacity: 1;
+      }
+    </style>
 
-<footer class="text-white pt-5 pb-0" style="background-color: #0F111E;">
-  <div class="container pb-4">
-    <div class="row g-4">
+    <footer class="text-white pt-5 pb-0" style="background-color: #0F111E;">
+      <div class="container pb-4"> <div class="row g-4">
 
-      <div class="col-md-4">
-        <h2 class="h5 fw-semibold mb-3">FindMyCar</h2>
-        <p class="mb-3 text-light">Busque menos. Viva mais.</p>
-        <form class="d-flex rounded-pill overflow-hidden" style="background-color: #2A2D3E;">
-          <input
-            id="input-email"
-            type="email"
-            class="form-control border-0 text-white"
-            placeholder="Seu endereço de email"
-            style="background-color: #2A2D3E;"
-          />
-          <button
-            type="submit"
-            class="btn rounded-pill"
-            style="background-color: #4C65F1; color: #fff; white-space: nowrap;"
-          >
-            Cadastre-se
-          </button>
-        </form>
+          <div class="col-md-4">
+            <h2 class="h5 fw-semibold mb-3">FindMyCar</h2>
+            <p class="mb-3 text-light">Busque menos. Viva mais.</p>
+            <form class="d-flex rounded-pill overflow-hidden" style="background-color: #2A2D3E;">
+              <input
+                id="input-email"
+                type="email"
+                class="form-control border-0 text-white"
+                placeholder="Seu endereço de email"
+                style="background-color: #2A2D3E;"
+              />
+              <button
+                type="submit"
+                class="btn rounded-pill"
+                style="background-color: #4C65F1; color: #fff; white-space: nowrap;"
+              >
+                Cadastre-se
+              </button>
+            </form>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Sobre a Empresa</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sobre nós</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Serviços</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Termos</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Contato</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Links Rápidos</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Teste</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Anuncie</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Suporte</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Marcas</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Toyota</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Porsche</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Audi</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">BMW</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Ford</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Nissan</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Peugeot</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Volkswagen</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Tipos</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sedan</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Hatchback</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">SUV</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Híbrido</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Elétrico</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Caminhonete</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Van</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Conversível</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="col-6 col-md-2">
-        <h6 class="fw-semibold mb-3">Sobre a Empresa</h6>
-        <ul class="list-unstyled small">
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sobre nós</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Serviços</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Termos</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Contato</a></li>
-        </ul>
+      <div class="border-top border-secondary mt-4 pt-3 px-3" style="width: 100%;">
+        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row text-secondary small">
+          <p class="mb-2 mb-md-0">© 2025 FindMyCar. Todos os direitos reservados.</p>
+          <nav class="d-flex gap-3">
+            <a href="#" class="text-secondary text-decoration-none">Termos e Política</a>
+            <span aria-hidden="true">•</span>
+            <a href="#" class="text-secondary text-decoration-none">Privacidade</a>
+          </nav>
+        </div>
       </div>
-
-      <div class="col-6 col-md-2">
-        <h6 class="fw-semibold mb-3">Links Rápidos</h6>
-        <ul class="list-unstyled small">
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Teste</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Anuncie</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Suporte</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-2">
-        <h6 class="fw-semibold mb-3">Marcas</h6>
-        <ul class="list-unstyled small">
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Toyota</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Porsche</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Audi</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">BMW</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Ford</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Nissan</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Peugeot</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Volkswagen</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-2">
-        <h6 class="fw-semibold mb-3">Tipos</h6>
-        <ul class="list-unstyled small">
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sedan</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Hatchback</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">SUV</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Híbrido</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Elétrico</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Caminhonete</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Van</a></li>
-          <li><a href="#" class="text-light text-decoration-none d-block mb-1">Conversível</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="border-top border-secondary mt-4 pt-3 px-3" style="width: 100%;">
-    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row text-secondary small">
-      <p class="mb-2 mb-md-0">© 2025 FindMyCar. Todos os direitos reservados.</p>
-      <nav class="d-flex gap-3">
-        <a href="#" class="text-secondary text-decoration-none">Termos e Política</a>
-        <span aria-hidden="true">•</span>
-        <a href="#" class="text-secondary text-decoration-none">Privacidade</a>
-      </nav>
-    </div>
-  </div>
-</footer>
+    </footer>
 
     </div>
 

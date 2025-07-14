@@ -1,148 +1,162 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" style="font-family: 'Plus Jakarta Sans', sans-serif;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <title>FindMyCar</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/recomendacao.css') }}" />
   <link rel="stylesheet" href="../static/styles/recomendacao.css">
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <script>
-    function toggleProfileMenu() {
-      const menu = document.getElementById("profileMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-    }
-  
-    // Fecha o menu ao clicar fora
-    window.addEventListener('click', function(e) {
-      const menu = document.getElementById("profileMenu");
-      const wrapper = document.querySelector(".profile-wrapper");
-      if (!wrapper.contains(e.target)) {
-        menu.style.display = "none";
-      }
-    });
-  </script>
 </head>
-<body>
+<body style="font-family: 'Plus Jakarta Sans', sans-serif;">
     <div id="app">
-          <header class="topbar">
-        <div class="logo">FindMyCar</div>
-      
-        <nav class="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Ficha</a>
-          <a href="#">Testes</a>
-          <a href="#">Carros</a>
-          <a href="#">Sobre</a>
-          <a href="#">Contato</a>
+        <nav class="navbar navbar-expand-md navbar-dark py-3" style="background-color: rgb(95, 103, 116); backdrop-filter: blur(6px);">
+            <div class="container-fluid px-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
+              <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0">
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-white-75" href="/">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-white-75" href="/ficha">Ficha</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-white-75" href="/carros">Carros</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-white-75" href="/questionario">Teste</a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link text-white-75" href="/sobre">Sobre</a>
+                </li>
+              </ul>
+          
+              <a class="navbar-brand order-1 order-md-2 fw-semibold mx-auto" href="#">FindMyCar</a>
+          
+              <div class="dropdown order-3">
+  <button class="btn text-white dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(95, 103, 116, 0.9);">
+    {{ session['user']['email'] }}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+    <li><a class="dropdown-item" href="/perfil">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
+          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
+        Perfil
+    </a></li>
+    <li><a class="dropdown-item" href="/configuracoes">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
+          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1 .872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1-.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413-1.4-2.397 0-2.81l.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"/>
+        </svg>
+        Configurações
+    </a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="/logout">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" style="margin-right: 8px;">
+          <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+        </svg>
+        Logout
+    </a></li>
+  </ul>
+</div>
+            </div>
         </nav>
-      
-        <div class="profile-area">
-            <div class="profile-wrapper" onclick="toggleProfileMenu()">
-              <span class="profile-icon"></span>
-              <div class="profile-menu" id="profileMenu">
-                <a href="#">Minha conta</a>
-                <a href="#">Configurações</a>
-                <a href="#">Sair</a>
+
+        <div class="page-container">
+            <section class="car-highlight" v-if="carros.length">
+                <div class="highlight-left">
+                  <h2>Mais recomendado</h2>
+                  <img src="{{ carro_principal['Imagem'] }}" class="highlight-image">
+                  <h1>{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }} {{ carro_principal['Ano'] }}</h1>
+                  <p class="car-id">#{{ carro_principal['id_Carro'] }}</p>
+                  <p class="price">Preço médio<br><span class="highlight-price">R$ </span></p>
+                  <a href="#" class="button">Ver ficha técnica</a>
+                  
+                  <img :src="'/static/images/' + carros[0].ImagemFrontal" class="car-front-image">
+                  
+                </div>
+            </section>
+
+            <section class="retake-test">
+                <h3>Refazer Teste</h3>
+                <p class="title">Gostaria de refazer o teste?</p>
+                <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
+                <a href="/questionario" class="button">Faça agora</a>
+            </section>
+        
+            <section class="recommendations" v-if="carros.length > 1">
+                <h3>Outras recomendações</h3>
+                <div class="car-list">
+                    {% for car in outros_carros %}
+                    <div class="car-card">
+                        <img src="{{ car['Imagem'] }}">
+                        <h4>{{ car['Modelo'] }}</h4>
+                        <p>{{ car['Marca'] }}</p>
+                        <p>{{ loop.index + 1 }}° recomendação</p>
+                    </div>
+                    {% endfor %}   
+                </div>
+            </section>
+
+            <section class="ratings">
+                <h3>Avaliações</h3>
+                <ul>
+                  <li>Interior: <span class="blue-star">⭐</span> 5.0</li>
+                  <li>Exterior: <span class="blue-star">⭐</span> 4.0</li>
+                  <li>Preço: <span class="blue-star">⭐</span> 4.0</li>
+                  <li>Performance: <span class="blue-star">⭐</span> 5.0</li>
+                  <li>Manutenção: <span class="blue-star">⭐</span> 4.0</li>
+                </ul>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+              <div class="footer-column">
+                <h4>Sobre</h4>
+                <p>
+                  A FindMyCar conecta você ao carro ideal com base em seu estilo, uso e preferências. Nosso sistema de recomendação facilita sua escolha com inteligência e praticidade.
+                </p>
+              </div>
+              <div class="footer-column">
+                <h4>Links rápidos</h4>
+                <ul>
+                  <li><a href="#">Início</a></li>
+                  <li><a href="#">Recomendações</a></li>
+                  <li><a href="#">Comparar carros</a></li>
+                  <li><a href="/logout/questionario">Refazer teste</a></li>
+                </ul>
+              </div>
+              <div class="footer-column">
+                <h4>Marcas</h4>
+                <ul>
+                  <li><a href="#">Toyota</a></li>
+                  <li><a href="#">Nissan</a></li>
+                  <li><a href="#">Koenigsegg</a></li>
+                  <li><a href="#">Rolls-Royce</a></li>
+                </ul>
+              </div>
+              <div class="footer-column">
+                <h4>Tipos</h4>
+                <ul>
+                  <li><a href="#">SUV</a></li>
+                  <li><a href="#">Esporte</a></li>
+                  <li><a href="#">Conversível</a></li>
+                  <li><a href="#">Hatchback</a></li>
+                </ul>
               </div>
             </div>
-            <div class="menu-icon" onclick="toggleMenu()">☰</div>
-          </div>
-      </header>
-      
-    <div class="container"></div>
-    <section class="car-highlight" v-if="carros.length">
-      <div class="highlight-left">
-        <h2>Mais recomendado</h2>
-        <img src="{{ carro_principal['Imagem'] }}" class="highlight-image">
-        <h1>{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }} {{ carro_principal['Ano'] }}</h1>
-        <p class="car-id">#{{ carro_principal['id_Carro'] }}</p>
-        <p class="price">Preço médio<br><span class="highlight-price">R$ </span></p>
-        <a href="#" class="button">Ver ficha técnica</a>
-        
-        <img :src="'/static/images/' + carros[0].ImagemFrontal" class="car-front-image">
-        
-      </div>
-    </section>
-
-    <section class="retake-test">
-        <h3>Refazer Teste</h3>
-        <p class="title">Gostaria de refazer o teste?</p>
-        <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
-        <a href="/questionario" class="button">Faça agora</a>
-    </section>
-    
-
-    <section class="recommendations" v-if="carros.length > 1">
-      <h3>Outras recomendações</h3>
-      <div class="car-list">
-        {% for car in outros_carros %}
-      <div class="car-card">
-        <img src="{{ car['Imagem'] }}">
-        <h4>{{ car['Modelo'] }}</h4>
-        <p>{{ car['Marca'] }}</p>
-        <p>{{ loop.index + 1 }}° recomendação</p>
-      </div>
-    {% endfor %}   
-      </div>
-    </section>
-
-  </div>
-
-    <section class="ratings">
-        <h3>Avaliações</h3>
-        <ul>
-          <li>Interior: <span class="blue-star">⭐</span> 5.0</li>
-          <li>Exterior: <span class="blue-star">⭐</span> 4.0</li>
-          <li>Preço: <span class="blue-star">⭐</span> 4.0</li>
-          <li>Performance: <span class="blue-star">⭐</span> 5.0</li>
-          <li>Manutenção: <span class="blue-star">⭐</span> 4.0</li>
-        </ul>
-        <p class="year">2018</p>
-      </section>
+            <div class="footer-bottom">
+              <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
+            </div>
+        </footer>     
     </div>
-    <footer class="footer">
-        <div class="footer-content">
-          <div class="footer-column">
-            <h4>Sobre</h4>
-            <p>
-              A FindMyCar conecta você ao carro ideal com base em seu estilo, uso e preferências. Nosso sistema de recomendação facilita sua escolha com inteligência e praticidade.
-            </p>
-          </div>
-          <div class="footer-column">
-            <h4>Links rápidos</h4>
-            <ul>
-              <li><a href="#">Início</a></li>
-              <li><a href="#">Recomendações</a></li>
-              <li><a href="#">Comparar carros</a></li>
-              <li><a href="/logout/questionario">Refazer teste</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Marcas</h4>
-            <ul>
-              <li><a href="#">Toyota</a></li>
-              <li><a href="#">Nissan</a></li>
-              <li><a href="#">Koenigsegg</a></li>
-              <li><a href="#">Rolls-Royce</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Tipos</h4>
-            <ul>
-              <li><a href="#">SUV</a></li>
-              <li><a href="#">Esporte</a></li>
-              <li><a href="#">Conversível</a></li>
-              <li><a href="#">Hatchback</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
-        </div>
-      </footer>    
-  
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

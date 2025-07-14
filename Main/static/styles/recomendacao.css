@@ -8,79 +8,13 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: #f4f4f4;
   color: #333;
+  /* Removido o CSS da navbar antiga (.topbar, .logo, .nav-links, etc.) */
 }
 
-/* Topbar */
-.topbar {
-  background-color: #748096;
-  color: #fff;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  border-radius: 0 0 12px 12px;
-  margin-bottom: 20px;
-}
-
-.logo {
-  font-weight: bold;
-  font-size: 1.3rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.nav-links a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-  color: #cce4ff;
-}
-
-.nav-links.active {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-area {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.profile-icon {
-  font-size: 1.4rem;
-  color: #fff;
-}
-
-.menu-icon {
-  display: none;
-  font-size: 1.6rem;
-  cursor: pointer;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-  .menu-icon {
-    display: block;
-  }
-}
-
-/* Container */
-.container {
+/* Container RENOMEADO para evitar conflito com o Bootstrap */
+.page-container {
   max-width: 960px;
-  margin: auto;
+  margin: 20px auto; /* Adicionado um margin-top para separar da navbar */
   background: #fff;
   padding: 30px;
   border-radius: 12px;
@@ -342,7 +276,7 @@ h1 span {
   color: #777;
 }
 
-/* Profile Menu */
+/* O CSS do Profile Menu pode ser mantido ou removido se não for usar */
 .profile-wrapper {
   position: relative;
   cursor: pointer;
