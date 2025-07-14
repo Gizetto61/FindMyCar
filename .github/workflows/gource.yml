@@ -20,7 +20,7 @@ jobs:
           args: '--key'
           gource_title: 'FindMyCar'
           gource_resolution: '1080p'
-          avatars_auto_fetch: true
+          avatars_url: "imagens/"
           gource_time_scale: 0.5
           gource_fps: 60
           gource_font_size: 40
