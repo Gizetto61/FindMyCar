@@ -18,7 +18,7 @@ jobs:
         uses: nbprojekt/gource-action@v1
         with:
           args: '--key'
-          gource_title: 'MyMed Front-end'
+          gource_title: 'FindMyCar'
           gource_resolution: '1080p'
           avatars_auto_fetch: true
           gource_time_scale: 0.5
