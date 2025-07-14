@@ -203,6 +203,38 @@ footer {
     padding-top: 1rem;
     flex-wrap: wrap;
   }
+  /* O CSS do Profile Menu pode ser mantido ou removido se não for usar */
+.profile-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: #0056b3;
+  color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-width: 160px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.profile-menu a {
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.profile-menu a:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
 
 
   

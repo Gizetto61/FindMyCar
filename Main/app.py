@@ -93,17 +93,19 @@ def questionario():
 
 @app.route('/recomendacao')
 def recomendacao():
-    if "recomendacoes" in session:
-        top_5 = session.get('recomendacoes')
+    if 'user' in session:
+        if "recomendacoes" in session:
+            top_5 = session.get('recomendacoes')
 
-        if not top_5 or len(top_5) < 1:
-            return redirect(url_for('questionario'))
+            if not top_5 or len(top_5) < 1:
+                return redirect(url_for('questionario'))
 
-        return render_template('recomendacao.html',
-                            carro_principal=top_5[0],
-                            outros_carros=top_5[1:])
-    else:
-        return redirect(url_for("questionario"))
+            return render_template('recomendacao.html',
+                                carro_principal=top_5[0],
+                                outros_carros=top_5[1:])
+        else:
+            return redirect(url_for("questionario"))
+    return(redirect(url_for("login")))
 
 
 @app.route('/logout/questionario')
