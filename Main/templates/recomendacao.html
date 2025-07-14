@@ -113,46 +113,97 @@
             </section>
         </div>
 
-        <footer class="footer">
-            <div class="footer-content">
-              <div class="footer-column">
-                <h4>Sobre</h4>
-                <p>
-                  A FindMyCar conecta você ao carro ideal com base em seu estilo, uso e preferências. Nosso sistema de recomendação facilita sua escolha com inteligência e praticidade.
-                </p>
-              </div>
-              <div class="footer-column">
-                <h4>Links rápidos</h4>
-                <ul>
-                  <li><a href="#">Início</a></li>
-                  <li><a href="#">Recomendações</a></li>
-                  <li><a href="#">Comparar carros</a></li>
-                  <li><a href="/logout/questionario">Refazer teste</a></li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Marcas</h4>
-                <ul>
-                  <li><a href="#">Toyota</a></li>
-                  <li><a href="#">Nissan</a></li>
-                  <li><a href="#">Koenigsegg</a></li>
-                  <li><a href="#">Rolls-Royce</a></li>
-                </ul>
-              </div>
-              <div class="footer-column">
-                <h4>Tipos</h4>
-                <ul>
-                  <li><a href="#">SUV</a></li>
-                  <li><a href="#">Esporte</a></li>
-                  <li><a href="#">Conversível</a></li>
-                  <li><a href="#">Hatchback</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="footer-bottom">
-              <p>&copy; 2025 FindMyCar. Todos os direitos reservados.</p>
-            </div>
-        </footer>     
+        <style>
+      footer input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+        opacity: 1;
+      }
+    </style>
+
+    <footer class="text-white pt-5 pb-0" style="background-color: #0F111E;">
+      <div class="container pb-4"> <div class="row g-4">
+
+          <div class="col-md-4">
+            <h2 class="h5 fw-semibold mb-3">FindMyCar</h2>
+            <p class="mb-3 text-light">Busque menos. Viva mais.</p>
+            <form class="d-flex rounded-pill overflow-hidden" style="background-color: #2A2D3E;">
+              <input
+                id="input-email"
+                type="email"
+                class="form-control border-0 text-white"
+                placeholder="Seu endereço de email"
+                style="background-color: #2A2D3E;"
+              />
+              <button
+                type="submit"
+                class="btn rounded-pill"
+                style="background-color: #4C65F1; color: #fff; white-space: nowrap;"
+              >
+                Cadastre-se
+              </button>
+            </form>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Sobre a Empresa</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sobre nós</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Serviços</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Termos</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Contato</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Links Rápidos</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Teste</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Anuncie</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Suporte</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Marcas</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Toyota</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Porsche</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Audi</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">BMW</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Ford</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Nissan</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Peugeot</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Volkswagen</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2">
+            <h6 class="fw-semibold mb-3">Tipos</h6>
+            <ul class="list-unstyled small">
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sedan</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Hatchback</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">SUV</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Híbrido</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Elétrico</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Caminhonete</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Van</a></li>
+              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Conversível</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary mt-4 pt-3 px-3" style="width: 100%;">
+        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row text-secondary small">
+          <p class="mb-2 mb-md-0">© 2025 FindMyCar. Todos os direitos reservados.</p>
+          <nav class="d-flex gap-3">
+            <a href="#" class="text-secondary text-decoration-none">Termos e Política</a>
+            <span aria-hidden="true">•</span>
+            <a href="#" class="text-secondary text-decoration-none">Privacidade</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
