@@ -73,16 +73,14 @@
                   <h2>Mais recomendado</h2>
                   <img src="{{ carro_principal['Imagem'] }}" class="highlight-image">
                   <h1>{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }} {{ carro_principal['Ano'] }}</h1>
-                  <p class="car-id">#{{ carro_principal['id_Carro'] }}</p>
-                  <p class="price">Preço médio<br><span class="highlight-price">R$ </span></p>
-                  <a href="#" class="button">Ver ficha técnica</a>
+                    <a href="#" class="button">Ver ficha técnica</a>
                   
                   <img :src="'/static/images/' + carros[0].ImagemFrontal" class="car-front-image">
                   
                 </div>
             </section>
 
-            <section class="retake-test">
+            <section class="retake-test" style="margin-top: -400px; margin-right: 80px;">
                 <h3>Refazer Teste</h3>
                 <p class="title">Gostaria de refazer o teste?</p>
                 <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
@@ -106,11 +104,11 @@
             <section class="ratings">
                 <h3>Avaliações</h3>
                 <ul>
-                  <li>Interior: <span class="blue-star">⭐</span> 5.0</li>
-                  <li>Exterior: <span class="blue-star">⭐</span> 4.0</li>
-                  <li>Preço: <span class="blue-star">⭐</span> 4.0</li>
-                  <li>Performance: <span class="blue-star">⭐</span> 5.0</li>
-                  <li>Manutenção: <span class="blue-star">⭐</span> 4.0</li>
+                  <li>Interior: <span class="blue-star">⭐</span> {{carro_principal['Conforto']}}.0</li>
+                  <li>Exterior: <span class="blue-star">⭐</span> {{carro_principal['Espaco']}}.0</li>
+                  <li>Preço: <span class="blue-star">⭐</span> {{carro_principal['Preco']}}.0</li>
+                  <li>Performance: <span class="blue-star">⭐</span> {{carro_principal['Consumo']}}.0</li>
+                  <li>Manutenção: <span class="blue-star">⭐</span> {{carro_principal['Manutencao']}}.0</li>
                 </ul>
             </section>
         </div>
