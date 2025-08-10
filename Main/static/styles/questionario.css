@@ -8,7 +8,7 @@
   
 html, body,#app{
   height: 100%;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -153,6 +153,7 @@ footer {
     color: white;
     padding: 0.5rem;
     z-index: 100;
+    padding-bottom: 2px;
 }
   
 .footer-content {
