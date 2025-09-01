@@ -1,36 +1,89 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, session, flash
+from flask import Flask, render_template, redirect, url_for, request, jsonify, session, flash, abort
 import mysql.connector
 from authlib.integrations.flask_client import OAuth
-from os import environ as env
+import os
+import requests, jwt
 from dotenv import find_dotenv, load_dotenv
 from urllib.parse import quote_plus, urlencode
+
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
+    
+from m2m_auth0 import get_management_token
+
+AUTH0_DOMAIN   = os.getenv("AUTH0_DOMAIN")
+REDIRECT_SECRET = os.getenv("REDIRECT_SECRET")
 
 app = Flask(__name__)
-app.secret_key = env.get("APP_SECRET_KEY")
+app.secret_key = os.getenv("APP_SECRET_KEY")
 
 oauth = OAuth(app)
 oauth.register(
     name = 'google',
-    client_id=env.get("AUTH0_CLIENT_ID"),
-    client_secret=env.get("AUTH0_CLIENT_SECRET"),
+    client_id=os.getenv("AUTH0_CLIENT_ID"),
+    client_secret=os.getenv("AUTH0_CLIENT_SECRET"),
     client_kwargs={
         "scope": "openid profile email",
     },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
+    server_metadata_url=f'https://{AUTH0_DOMAIN}/.well-known/openid-configuration'
 )
+
+@app.get("/verify-email")
+def verify_email():
+    return render_template("verify_email.html")
+
+@app.post("/api/auth0/resend-verification")
+def resend_verification():
+    data = request.get_json(silent=True) or {}
+    session_token = data.get("session_token")
+    if not session_token:
+        return jsonify(error="missing_session_token"), 400
+
+    # valida token assinado pela Action
+    try:
+        payload = jwt.decode(session_token, REDIRECT_SECRET, algorithms=["HS256"])
+    except Exception:
+        return jsonify(error="invalid_session_token"), 401
+
+    user_id = payload.get("user_id")
+    if not user_id:
+        return jsonify(error="missing_user_id"), 400
+
+    # token M2M
+    try:
+        token = get_management_token()
+    except Exception as e:
+        return jsonify(error="m2m_token_error", detail=str(e)), 502
+
+    # chama Management API
+    try:
+        r = requests.post(
+            f"https://{AUTH0_DOMAIN}/api/v2/jobs/verification-email",
+            json={"user_id": user_id},
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            timeout=10
+        )
+        # propaga a resposta da Management API em JSON
+        # (se não for JSON, devolve texto mesmo)
+        try:
+            body = r.json()
+            return jsonify(body), r.status_code
+        except ValueError:
+            return (r.text, r.status_code, {"Content-Type": "application/json"})
+    except requests.RequestException as e:
+        return jsonify(error="auth0_request_failed", detail=str(e)), 502
+
 
 
 def get_carros():
     conn = mysql.connector.connect(
-        host=env.get("MYSQL_HOST"),
-        port=env.get("MYSQL_PORT"),
-        user=env.get("MYSQL_USER"),
-        password=env.get("MYSQL_PASSWORD"),
-        database=env.get("MYSQL_DATABASE")
+        host=os.getenv("MYSQL_HOST"),
+        port=os.getenv("MYSQL_PORT"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        database=os.getenv("MYSQL_DATABASE")
     )
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT * FROM Carro")
@@ -52,9 +105,10 @@ def home():
 def start():
     return render_template("homepage.html")
 
-@app.route("/cadastro")
-def cadastro():
-    return redirect(url_for("login"))
+@app.route("/signup")
+def signup():
+    redirect_uri = url_for('authorize', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri, screen_hint='signup')
 
 @app.route('/login')
 def login():
@@ -63,8 +117,12 @@ def login():
 
 @app.route('/authorize')
 def authorize():
+    # Se o Auth0 negou o login, vem com ?error=access_denied
+    if request.args.get("error"):
+        return "<h1>Erro!</h1>"  # sua homepage "/"
+
+    # Se não há erro, processa normalmente
     token = oauth.google.authorize_access_token()
-    #print(token['userinfo'])
     session['user'] = token['userinfo']
     return redirect(url_for('questionario'))
 
@@ -73,12 +131,12 @@ def logout():
     session.clear()
     return redirect(
         "https://"
-        + env.get("AUTH0_DOMAIN")
+        + os.getenv("AUTH0_DOMAIN")
         + "/v2/logout?"
         + urlencode(
             {
                 "returnTo": url_for("start", _external=True),
-                "client_id": env.get("AUTH0_CLIENT_ID"),
+                "client_id": os.getenv("AUTH0_CLIENT_ID"),
             },
             quote_via=quote_plus,
         )

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Verifique seu e-mail</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Paleta e tipografia no estilo do mock */
+  :root{
+    --bg-start:#0f172a;     /* azul-noite */
+    --bg-end:#334155;       /* slate azulado */
+    --text:#f8fafc;         /* quase branco */
+    --muted:#cbd5e1;        /* cinza claro */
+    --card:rgba(255,255,255,0.06); /* efeito glass */
+    --card-border:rgba(255,255,255,0.12);
+    --radius:14px;
+    --btn-bg:#ffffff;       /* botão branco tipo pílula */
+    --btn-text:#0f172a;     /* texto escuro no botão */
+  }
+
+  /* Base */
+  html,body{
+    height:100%;
+    margin:0;
+    background:linear-gradient(180deg,var(--bg-start),var(--bg-end));
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+  }
+
+/* Mantém o padding, mas evita overflow */
+.wrap{
+  min-height: calc(100svh - 48px);
+  min-height: calc(100dvh - 48px);
+  min-height: calc(100vh  - 48px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+
+  .box{
+    width:100%;
+    max-width:420px;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:28px;
+    animation:fadeIn .25s ease-out;
+  }
+
+  .logo{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+  .logo img{height:50px;width:auto;}
+
+  h1{
+    font-size:28px;
+    font-weight:700;
+    margin:8px 0 6px;
+    color:var(--text);
+    letter-spacing:.2px;
+  }
+
+  p{color:var(--muted);line-height:1.55;margin:0 0 16px}
+
+  .btn{
+    width:100%;
+    border:0;
+    border-radius:9999px;       /* pílula */
+    padding:12px 16px;
+    font-weight:600;
+    background:var(--btn-bg);
+    color:var(--btn-text);
+    cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    transition:transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.22); }
+  .btn:active{ transform:translateY(0); box-shadow:0 6px 18px rgba(0,0,0,.18); }
+  .btn:focus{ outline:2px solid rgba(255,255,255,.6); outline-offset:2px; }
+  .btn[disabled]{opacity:.6;cursor:not-allowed}
+
+  .link{
+    display:block;
+    text-align:center;
+    margin-top:12px;
+    color:#ffffff;
+    text-decoration:underline;
+    font-weight:500;
+  }
+  .link:focus{ outline:2px solid rgba(255,255,255,.6); outline-offset:2px; }
+
+  .hint{font-size:13px;color:var(--muted);margin-top:10px}
+
+  @keyframes fadeIn { from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+</style>
+
+</head>
+<body>
+  <div class="wrap">
+    <div class="box">
+      <div class="logo">
+        <img src="https://i.ibb.co/7x6b9cvj/logo-findmycar.png" alt="-" />
+        <strong>FindMyCar</strong>
+      </div>
+      <h1>Verifique seu e-mail</h1>
+      <p>Enviamos um link de verificação para o seu endereço de e-mail. Abra a sua caixa de entrada e clique no link para continuar.</p>
+      <button class="btn" id="resend">Reenviar e-mail de verificação</button>
+      <a class="link" id="verified">Já verifiquei meu e-mail</a>
+      <div class="hint" id="msg"></div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const state = params.get('state');
+    const session_token = params.get('session_token'); // fornecido pela Action
+    const auth0Domain = 'dev-0r0rwu1kzx3qe2rz.us.auth0.com'; // ex: 'minha-tenant.us.auth0.com'
+
+    document.getElementById('resend').onclick = async (e) => {
+      e.target.disabled = true;
+      document.getElementById('msg').textContent = 'Enviando...';
+      try {
+        const r = await fetch('/api/auth0/resend-verification', {
+          method: 'POST',
+          headers: {'content-type':'application/json'},
+          body: JSON.stringify({ session_token })
+        });
+        if (!r.ok) throw new Error('Falha ao enviar');
+        document.getElementById('msg').textContent = 'E-mail reenviado! Confira sua caixa de entrada.';
+      } catch (err) {
+        document.getElementById('msg').textContent = 'Não foi possível reenviar. Tente novamente em instantes.';
+        e.target.disabled = false;
+      }
+    };
+
+    document.getElementById('verified').onclick = () => {
+      // retorna à Auth0 p/ concluir o login
+      location.href = `https://${auth0Domain}/continue?state=${encodeURIComponent(state)}`;
+    };
+  </script>
+</body>
+</html>
