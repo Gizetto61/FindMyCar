@@ -30,6 +30,7 @@ body {
   main {
     flex-grow: 1;
     padding-bottom: 200px; 
+    position: relative;
 }
 
 
@@ -237,7 +238,16 @@ footer {
   color: #333;
 }
 
-
+button.botao-voltar{
+  border-radius: 20px;
+  background-color: #DDDDDD;
+  width: 180px;
+  height: 28px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 92%;
+  left: 50%;
+}
   
   @media (max-width: 768px) {
     .navbar {

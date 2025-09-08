@@ -101,6 +101,9 @@
             <br /><span>[[ getOptionDescription(n) ]]</span>
           </button>
         </div>
+        <button class="botao-voltar" @click="voltarPergunta()">
+          <p>Voltar</p>
+        </button>
       </main>
 
     <style>
@@ -254,6 +257,12 @@
           },
         },
         methods: {
+          voltarPergunta(){
+            if (this.i_pergunta_atual > 0){
+              this.i_pergunta_atual--
+            }
+          },
+
           responderPergunta: function (resposta) {
             this.perguntas[this.i_pergunta_atual].resposta_pergunta = resposta;
 
