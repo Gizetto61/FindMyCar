@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>{% block title %}FindMyCar{% endblock %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    {% block styles %}{% endblock %}
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+
+    {% include '_navbar.html' %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include '_footer.html' %}
+
+    {% block scripts %}{% endblock %}
+     <script>
+        const profileButton = document.getElementById('profileDropdownButton');
+        const profileMenu = document.getElementById('profileDropdownMenu');
+
+        if (profileButton && profileMenu) {
+            profileButton.addEventListener('click', function (event) {
+                event.stopPropagation();
+                profileMenu.classList.toggle('hidden');
+            });
+
+            window.addEventListener('click', function (event) {
+                if (!profileMenu.classList.contains('hidden') && !profileMenu.contains(event.target)) {
+                    profileMenu.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

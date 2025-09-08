@@ -1,52 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FindMyCar - Encontre seu carro ideal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+{% extends 'base.html' %}
 
-</head>
-<body class="bg-white text-gray-900 font-sans">
+{% block title %}FindMyCar - Encontre seu carro ideal{% endblock %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+{% endblock %}
 
+{% block content %}
 
-<nav class="bg-gray-700 bg-opacity-80 backdrop-blur-sm py-4 sticky top-0 z-50">
-  <div class="container mx-auto flex items-center justify-between px-4 md:px-8">
-    <ul class="hidden md:flex gap-8 text-gray-300 text-base font-medium">
-      <li><a href="/" class="hover:text-white">Home</a></li>
-      <li><a href="/" class="hover:text-white">Ficha</a></li>
-      <li><a href="/" class="hover:text-white">Carros</a></li>
-      <li class="relative group">
-        <a href="/questionario" class="hover:text-white">Teste</a>
-        <ul class="absolute left-0 top-full mt-2 w-40 bg-gray-900 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-gray-200 text-sm">
-          <li><a href="/questionario" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste simples</a></li>
-          <li><a href="/questionario" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste avançado</a></li>
-        </ul>
-      </li>
-      <li><a href="/" class="hover:text-white">Sobre</a></li>
-    </ul>
-
-    <a href="#" aria-label="FindMyCar Logo" class="text-white text-xl font-semibold mx-auto md:mx-0 select-none">FindMyCar</a>
-
-    <div class="flex items-center gap-3 text-gray-100 text-base">
-  <a href="/login" type="button" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-400" aria-label="Login">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-</svg>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A12.044 12.044 0 0112 15c2.28 0 4.392.704 6.06 1.904M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        Login
-      </a>
-      <a href="/signup" class="border border-white rounded-full px-4 py-2 text-white text-base hover:bg-white hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">Cadastre-se</a>
-    </div>
-  </div>
-</nav>
-
-
-
-  <!-- Search Bar Overlay -->
   <header class="relative bg-gray-500">
     <img 
       src="{{ url_for('static', filename='images/Background_Homepage.png') }}"
@@ -58,7 +19,6 @@
     <nav aria-label="Busca de carros"
          class="w-full max-w-4xl bg-transparent border border-white rounded-full backdrop-blur-sm px-5 py-3 flex items-center text-white">
       
-      <!-- Selects alinhados à esquerda -->
       <select class="bg-transparent text-white outline-none px-4 py-2 rounded-full cursor-pointer focus:bg-gray-800 focus:text-white focus:border-gray-400 border border-transparent transition">
         <option>Modelo</option>
         <option>Modelo A</option>
@@ -75,7 +35,6 @@
         <option>R$ 50.000 - R$ 100.000</option>
       </select>
 
-      <!-- Botão à direita -->
       <button type="submit"
         class="ml-auto flex items-center gap-2 bg-white text-gray-900 px-6 py-4 rounded-full font-semibold 
                hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-4 focus:ring-indigo-400 
@@ -97,7 +56,6 @@
     </div>
   </header>
 
-  <!-- Search by Type Section -->
 <section class="container mx-auto px-4 md:px-8 py-10">
   <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 text-center md:text-left">
     <h2 class="text-2xl font-bold text-gray-900">Busque pelo Tipo</h2>
@@ -110,7 +68,6 @@
   </div>
 
   <ul class="flex flex-wrap justify-center gap-4">
-    <!-- SUV -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-car-suv"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 17a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M16 17a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" /><path d="M5 9l2 -4h7.438a2 2 0 0 1 1.94 1.515l.622 2.485h3a2 2 0 0 1 2 2v3" /><path d="M10 9v-4" /><path d="M2 7v4" /><path d="M22.001 14.001a4.992 4.992 0 0 0 -4.001 -2.001a4.992 4.992 0 0 0 -4 2h-3a4.998 4.998 0 0 0 -8.003 .003" /><path d="M5 12v-3h13" /></svg>
@@ -120,7 +77,6 @@
       </button>
     </li>
 
-    <!-- Sedan -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="18" viewBox="0 0 34 18" fill="none">
@@ -132,7 +88,6 @@
       </button>
     </li>
 
-    <!-- Hatchback -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-car"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5" /></svg>
@@ -142,7 +97,6 @@
       </button>
     </li>
 
-    <!-- Caminhonete -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-car-crane"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M7 18h8m4 0h2v-6a5 5 0 0 0 -5 -5h-1l1.5 5h4.5" /><path d="M12 18v-11h3" /><path d="M3 17v-5h9" /><path d="M4 12v-6l18 -3v2" /><path d="M8 12v-4l-4 -2" /></svg>
@@ -152,7 +106,6 @@
       </button>
     </li>
 
-    <!-- Híbrido -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -162,7 +115,6 @@
       </button>
     </li>
 
-    <!-- Conversível -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
           <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -191,7 +143,6 @@
       </button>
     </li>
 
-    <!-- Van -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-rv-truck"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M9 17h6" /><path d="M19 17h1a1 1 0 0 0 1 -1v-4.528a2 2 0 0 0 -.211 -.894l-.96 -1.92a3 3 0 0 0 -2.683 -1.658h-11.146a3 3 0 0 0 -3 3v6a1 1 0 0 0 1 1h1" /><path d="M3 12h18" /><path d="M15 12v-5" /><path d="M6 4m0 1.5a1.5 1.5 0 0 1 1.5 -1.5h7a1.5 1.5 0 0 1 1.5 1.5v0a1.5 1.5 0 0 1 -1.5 1.5h-7a1.5 1.5 0 0 1 -1.5 -1.5z" /></svg>
@@ -201,7 +152,6 @@
       </button>
     </li>
 
-    <!-- Elétrico -->
     <li>
       <button class="flex flex-col items-center justify-center w-28 h-28 rounded-2xl border border-gray-300 hover:bg-gray-100 transition text-gray-900 font-medium">
 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-charging-pile"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1 1" /><path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" /><path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" /><path d="M9 11.5l-1.5 2.5h3l-1.5 2.5" /><path d="M3 20l12 0" /><path d="M4 8l10 0" /></svg>
@@ -217,10 +167,8 @@
   <hr class="mt-10 border-t border-gray-300 mb-6" />
 </section>
 
-  <!-- Main Content Section -->
-  <main class="container mx-auto px-4 md:px-8 pb-20 space-y-14">
+    <main class="container mx-auto px-4 md:px-8 pb-20 space-y-14">
 
-    <!-- Find your ideal car -->
     <section class="text-center max-w-4xl mx-auto" >
       <h2 class="text-3xl font-extrabold text-gray-900 mb-4">Encontre seu carro ideal!</h2>
       <p class="text-gray-800 mb-8 max-w-xl mx-auto">
@@ -235,9 +183,8 @@
       <a href="/questionario"><button class="mt-8 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-10 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-400 transition ease-in-out">Faça o teste</button></a>
     </section>
 
-    <!-- Grid section with CTA and images -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-6xl mx-auto py-12 px-4">
-  <!-- Bloco azul: Faça agora -->
+
   <div class="bg-[#3B68B6] text-white p-8 rounded-lg flex flex-col justify-center w-full md:h-64">
     <h3 class="font-semibold text-2xl mb-2 leading-snug">Está procurando o carro ideal?</h3>
     <p class="mb-6 text-sm">Aperte o botão abaixo e realize o teste.</p>
@@ -249,17 +196,14 @@
     </a>
   </div>
 
-  <!-- Imagem 1 -->
   <div class="rounded-xl overflow-hidden shadow-md md:h-64">
     <img src="https://wallpapers.com/images/featured/honda-civic-4k-ecxa2r7v5y673itq.jpg" alt="Carro azul estacionado em fundo listrado" class="object-cover w-full h-full" loading="lazy" onerror="this.style.display='none'" />
   </div>
 
-  <!-- Imagem 2 -->
   <div class="rounded-xl overflow-hidden shadow-md md:h-64">
     <img src="https://i.pinimg.com/736x/1c/a5/23/1ca523a435dfeb2182666ee2e825a2f0.jpg" alt="Carro prata moderno em movimento" class="object-cover w-full h-full" loading="lazy" onerror="this.style.display='none'" />
   </div>
 
-  <!-- Bloco cinza: Anuncie já -->
   <div class="bg-gray-400 text-gray-900 p-8 rounded-lg flex flex-col justify-center w-full md:h-64">
     <h3 class="font-semibold text-2xl mb-2 leading-snug">Quer anunciar um carro?</h3>
     <p class="mb-6 text-sm">Aperte o botão abaixo e anuncie agora.</p>
@@ -272,8 +216,6 @@
   </div>
 </section>
 
-
-    <!-- Explore all cars with tabs -->
     <section class="max-w-7xl mx-auto px-2 md:px-4">
       <div class="flex justify-between items-center mb-6">
         <h2 class="font-extrabold text-xl text-gray-900">Explore todos os carros</h2>
@@ -289,7 +231,7 @@
       </nav>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-        <!-- Card example -->
+
         <article class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow relative bg-white cursor-pointer focus-within:ring-2 focus-within:ring-indigo-400" tabindex="0" aria-label="Toyota Camry New, R$240,000">
           <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6e81460e-79c9-42a8-9d5b-111073987ee9.png" alt="Pristine silver Toyota Camry new car parked on bright city street with urban background" class="w-full h-40 object-cover" loading="lazy" onerror="this.style.display='none'" />
           <button aria-label="Favoritar Toyota Camry New" class="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-400" title="Favoritar">
@@ -313,7 +255,6 @@
           </div>
         </article>
 
-        <!-- Duplicate cards with different placeholders for demo -->
         <article class="border rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow relative bg-white cursor-pointer focus-within:ring-2 focus-within:ring-indigo-400" tabindex="0" aria-label="T-Cross 2023, R$240,000">
           <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/aa3f11c1-763d-460b-a867-0f9f8b458f3d.png" alt="Gray T-Cross SUV driving on a curvy mountain road with stunning forest views" class="w-full h-40 object-cover" loading="lazy" onerror="this.style.display='none'" />
           <button aria-label="Favoritar T-Cross 2023" class="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-1 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-400" title="Favoritar">
@@ -386,114 +327,4 @@
     </section>
   </main>
 
-  <!-- Por que nos escolher? -->
-  <section class="bg-indigo-600 text-white py-16">
-    <div class="container mx-auto px-4 md:px-8 max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
-      <article class="space-y-3">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-automation"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 20.693c-.905 .628 -2.36 .292 -2.675 -1.01a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.492 .362 1.716 2.219 .674 3.03" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17 22l5 -3l-5 -3z" /></svg>
-        <h3 class="font-semibold text-lg">Personalização</h3>
-        <p class="text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-          Analisa as preferências individuais de cada usuário para oferecer sugestões sob medida.
-        </p>
-      </article>
-      <article class="space-y-3">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-augmented-reality-2"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 21h-2a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v3.5" /><path d="M17 17l-4 -2.5l4 -2.5l4 2.5v4.5l-4 2.5z" /><path d="M13 14.5v4.5l4 2.5" /><path d="M17 17l4 -2.5" /><path d="M11 4h2" /></svg>
-        <h3 class="font-semibold text-lg">Tecnologia inteligente</h3>
-        <p class="text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-          Baseado em técnicas modernas de recomendação e inteligência artificial.
-        </p>
-      </article>
-      <article class="space-y-3">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-coins"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" /><path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" /><path d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" /><path d="M3 6v10c0 .888 .772 1.45 2 2" /><path d="M3 11c0 .888 .772 1.45 2 2" /></svg>
-        <h3 class="font-semibold text-lg">Redução de arrependimentos</h3>
-        <p class="text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-          Ajuda o usuário a fazer uma escolha mais consciente e alinhada com suas reais necessidades.
-        </p>
-      </article>
-      <article class="space-y-3">
-        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-manual-gearbox"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M19 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 8l0 8" /><path d="M12 8l0 8" /><path d="M19 8v2a2 2 0 0 1 -2 2h-12" /></svg>
-        <h3 class="font-semibold text-lg">Precisão nas recomendações</h3>
-        <p class="text-sm max-w-xs mx-auto md:mx-0 leading-relaxed">
-          Usa critérios como preço, consumo, conforto e manutenção para indicar os modelos mais adequados.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <!-- Footer -->
-<footer class="bg-[#0F111E] text-gray-300 text-sm">
-  <div class="container mx-auto px-4 md:px-8 py-12 max-w-7xl grid grid-cols-1 md:grid-cols-6 gap-y-8 gap-x-6">
-    <!-- Branding & Newsletter -->
-    <div class="md:col-span-2">
-      <h2 class="text-white text-xl font-semibold mb-1 select-none">FindMyCar</h2>
-      <p class="mb-6">Busque menos. Viva mais.</p>
-      <form class="flex w-full max-w-sm rounded-full overflow-hidden bg-[#2A2D3E]">
-        <label for="footer-email" class="sr-only">Seu endereço de email</label>
-        <input id="footer-email" type="email" placeholder="Seu endereço de email" class="bg-transparent px-4 py-2 w-full focus:outline-none text-white placeholder-gray-400" />
-        <button type="submit" class="bg-[#4C65F1] px-6 py-2 text-white font-medium hover:bg-indigo-600 focus:outline-none rounded-full whitespace-nowrap">Cadastre-se</button>
-      </form>
-    </div>
-
-    <!-- Links Seções -->
-    <div>
-      <h3 class="font-semibold mb-3 text-white">Sobre A Empresa</h3>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Sobre nós</a></li>
-        <li><a href="#" class="hover:text-white">Serviços</a></li>
-        <li><a href="#" class="hover:text-white">Termos</a></li>
-        <li><a href="#" class="hover:text-white">Contato</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-3 text-white">Links Rápidos</h3>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Teste</a></li>
-        <li><a href="#" class="hover:text-white">Anuncie</a></li>
-        <li><a href="#" class="hover:text-white">Suporte</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-3 text-white">Marcas</h3>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Toyota</a></li>
-        <li><a href="#" class="hover:text-white">Porsche</a></li>
-        <li><a href="#" class="hover:text-white">Audi</a></li>
-        <li><a href="#" class="hover:text-white">BMW</a></li>
-        <li><a href="#" class="hover:text-white">Ford</a></li>
-        <li><a href="#" class="hover:text-white">Nissan</a></li>
-        <li><a href="#" class="hover:text-white">Peugeot</a></li>
-        <li><a href="#" class="hover:text-white">Volkswagen</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h3 class="font-semibold mb-3 text-white">Tipos</h3>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Sedan</a></li>
-        <li><a href="#" class="hover:text-white">Hatchback</a></li>
-        <li><a href="#" class="hover:text-white">SUV</a></li>
-        <li><a href="#" class="hover:text-white">Híbrido</a></li>
-        <li><a href="#" class="hover:text-white">Elétrico</a></li>
-        <li><a href="#" class="hover:text-white">Caminhonete</a></li>
-        <li><a href="#" class="hover:text-white">Van</a></li>
-        <li><a href="#" class="hover:text-white">Conversível</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Bottom footer strip -->
-  <div class="border-t border-gray-800 py-4 flex flex-col md:flex-row justify-between items-center px-4 md:px-8 text-xs text-gray-500 select-none">
-    <p>© 2025 FindMyCar Todos os direitos reservados</p>
-    <nav class="flex gap-6 mt-2 md:mt-0 text-gray-400">
-      <a href="#" class="hover:underline">Termos e Política</a>
-      <span aria-hidden="true">•</span>
-      <a href="#" class="hover:underline">Privacidade</a>
-    </nav>
-  </div>
-</footer>
-
-</body>
-</html>
- 
+{% endblock %}

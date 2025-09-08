@@ -1,0 +1,45 @@
+<nav class="bg-gray-700 bg-opacity-80 backdrop-blur-sm py-2 sticky top-0 z-50">
+    <div class="container mx-auto flex items-center justify-between px-3">
+
+        <div class="flex items-center gap-8">
+            <a href="/" aria-label="FindMyCar Logo" class="text-white text-2xl font-semibold select-none">FindMyCar</a>
+
+            <ul class="hidden md:flex gap-8 text-gray-300 text-lg font-medium">
+                <li><a href="/" class="hover:text-white">Home</a></li>
+                <li><a href="/ficha" class="hover:text-white">Ficha</a></li>
+                <li><a href="/carros" class="hover:text-white">Carros</a></li>
+                <li class="relative group">
+                    <a href="/questionario" class="hover:text-white">Teste</a>
+                    <ul class="absolute left-0 top-full mt-2 w-40 bg-gray-900 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-gray-200 text-sm">
+                        <li><a href="/questionario" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste simples</a></li>
+                        <li><a href="/questionario" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Teste avançado</a></li>
+                    </ul>
+                </li>
+                <li><a href="/sobre" class="hover:text-white">Sobre</a></li>
+            </ul>
+        </div>
+
+        <div class="flex items-center gap-3 text-gray-100 text-lg">
+            {% if is_logged_in %}
+                <div class="relative">
+                    <button type="button" id="profileDropdownButton" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <span>{{ session['user']['email'] }}</span>
+                        <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <ul id="profileDropdownMenu" class="absolute hidden right-0 top-full mt-2 w-48 bg-gray-900 rounded shadow-md transition-opacity text-gray-200 text-sm z-10">
+                        <li><a href="/perfil" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Perfil</a></li>
+                        <li><a href="/perfil" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Configurações</a></li>
+                        <li><hr class="border-gray-700 my-1"></li>
+                        <li><a href="/logout" class="block px-4 py-2 hover:bg-indigo-600 hover:text-white">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="/login" type="button" class="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent hover:bg-gray-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-400" aria-label="Login">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
+                    Login
+                </a>
+                <a href="/signup" class="border border-white rounded-full px-4 py-2 text-white hover:bg-white hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">Cadastre-se</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

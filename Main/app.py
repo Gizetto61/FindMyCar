@@ -11,10 +11,11 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
     
-from m2m_auth0 import get_management_token
+
 
 AUTH0_DOMAIN   = os.getenv("AUTH0_DOMAIN")
 REDIRECT_SECRET = os.getenv("REDIRECT_SECRET")
+AUTH0_CLIENT_ID = os.getenv("AUTH0_CLIENT_ID")
 
 app = Flask(__name__)
 app.secret_key = os.getenv("APP_SECRET_KEY")
@@ -36,6 +37,7 @@ def verify_email():
 
 @app.post("/api/auth0/resend-verification")
 def resend_verification():
+    from m2m_auth0 import get_management_token
     data = request.get_json(silent=True) or {}
     session_token = data.get("session_token")
     if not session_token:
@@ -103,6 +105,8 @@ def home():
 
 @app.route("/")
 def start():
+    if 'user' in session:
+        return redirect(url_for("questionario"))
     return render_template("homepage.html")
 
 @app.route("/signup")
@@ -112,6 +116,8 @@ def signup():
 
 @app.route('/login')
 def login():
+    if 'user' in session:
+        return redirect(url_for("perfil"))
     redirect_uri = url_for('authorize', _external=True)
     return oauth.google.authorize_redirect(redirect_uri)
 
@@ -145,7 +151,7 @@ def logout():
 @app.route("/questionario", methods=['GET', 'POST'])
 def questionario():
     if 'user' in session:
-        return render_template("questionario.html")
+        return render_template('questionario.html', use_vue=True, is_logged_in=True)
     return redirect(url_for("login"))
 
 
@@ -160,12 +166,18 @@ def recomendacao():
 
             return render_template('recomendacao.html',
                                 carro_principal=top_5[0],
-                                outros_carros=top_5[1:])
+                                outros_carros=top_5[1:], is_logged_in=True)
         else:
             return redirect(url_for("questionario"))
     return(redirect(url_for("login")))
 
-
+@app.route("/perfil")
+def perfil():
+    if 'user' in session:
+        return render_template('perfil.html', is_logged_in=True)
+    else:
+        return redirect(url_for("start"))
+    
 @app.route('/logout/questionario')
 def logout_questionario():
     if "recomendacoes" in session:
@@ -174,6 +186,47 @@ def logout_questionario():
     
 
     return redirect(url_for("questionario"))
+
+@app.route("/perfil/alterar-senha", methods=["GET","POST"])
+def change_password():
+    # pegue o user_id do usuário logado
+    user_id = session['user']['sub']
+    email = session['user']['email']
+
+    if not user_id:
+        abort(401)
+
+    # só permite para database connection (credenciais gerenciadas pelo Auth0)
+    if not user_id.startswith("auth0|"):
+        flash("Sua senha é gerenciada pelo provedor (login social). Altere diretamente no Google/Apple/etc.")
+        return redirect(url_for("perfil"))
+
+    # pega token da Management API (M2M)
+    from m2m_auth0 import get_management_token
+    mgmt_token = get_management_token()
+
+    # para onde voltar após trocar a senha
+    result_url = url_for("password_changed", _external=True)
+
+    # cria o ticket
+    r = requests.post(
+        f"https://{AUTH0_DOMAIN}/api/v2/tickets/password-change",
+        headers={"Authorization": f"Bearer {mgmt_token}", "Content-Type": "application/json"},
+        json={
+            "user_id":  user_id,                 # usuário de DB: 'auth0|...'
+            "client_id": AUTH0_CLIENT_ID,        # opcional, recomendado no New UL
+            "ttl_sec": 900,                    # opcional (validade do ticket)
+        },
+        timeout=10
+    )
+    r.raise_for_status()
+    ticket_url = r.json()["ticket"]
+    return redirect(ticket_url, code=302)
+
+@app.get("/pwd-changed")
+def password_changed():
+    flash("Senha atualizada com sucesso.")
+    return redirect(url_for("perfil"))
 
 @app.route('/api/recomendar', methods=['POST'])
 def recomendar_api():

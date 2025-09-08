@@ -1,205 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-BR" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <title>FindMyCar</title>
+{% extends 'base.html' %}
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+{% block title %}Suas Recomendações - FindMyCar{% endblock %}
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles/recomendacao.css') }}" />
-  <link rel="stylesheet" href="../static/styles/recomendacao.css">
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/recomendacao.css') }}">
+{% endblock %}
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-</head>
+{% block content %}
+<div class="container mx-auto px-4 py-8">
 
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark py-3 px-5" style="background-color: rgb(95, 103, 116); backdrop-filter: blur(6px);">
-            <div class="container-fluid px-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
-              <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0">
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-white-75" href="/">Home</a>
-                </li>
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-white-75" href="/ficha">Ficha</a>
-                </li>
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-white-75" href="/carros">Carros</a>
-                </li>
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-white-75" href="/questionario">Teste</a>
-                </li>
-                <li class="nav-item mx-2">
-                  <a class="nav-link text-white-75" href="/sobre">Sobre</a>
-                </li>
-              </ul>
-          
-              <a class="navbar-brand order-1 order-md-2 fw-semibold" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)" href="#">FindMyCar</a>
-          
-              <div class="dropdown order-3">
-  <button class="btn text-white dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(95, 103, 116, 0.9);">
-    {{ session['user']['email'] }}
-  </button>
-  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-    <li><a class="dropdown-item" href="/perfil">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
-          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-        </svg>
-        Perfil
-    </a></li>
-    <li><a class="dropdown-item" href="/configuracoes">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
-          <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1 .872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1-.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413-1.4-2.397 0-2.81l.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"/>
-        </svg>
-        Configurações
-    </a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="/logout">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" style="margin-right: 8px;">
-          <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-          <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-        </svg>
-        Logout
-    </a></li>
-  </ul>
-</div>
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+
+        <div class="lg:col-span-1 flex justify-center items-center">
+            <img src="{{ carro_principal['Imagem'] }}" alt="Imagem do {{ carro_principal['Modelo'] }}" 
+                 class="max-w-full h-auto object-contain">
+        </div>
+
+        <div class="lg:col-span-2 space-y-8">
+            
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider">Mais recomendado para você</h2>
+                <h1 class="text-4xl font-extrabold text-gray-900 mt-1">{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }}</h1>
+                <p class="text-2xl text-gray-500 font-medium">{{ carro_principal['Ano'] }}</p>
+                <a href="/ficha/{{ carro_principal['ID_Carro'] }}" class="inline-block mt-4 bg-gray-800 text-white font-semibold py-2 px-5 rounded-lg hover:bg-gray-700 transition-colors">
+                    Ver ficha técnica
+                </a>
             </div>
-        </nav>
 
-        <div class="page-container">
-            <section class="car-highlight" v-if="carros.length">
-                <div class="highlight-left">
-                  <h2>Mais recomendado</h2>
-                  <img src="{{ carro_principal['Imagem'] }}" class="highlight-image">
-                  <h1>{{ carro_principal['Marca'] }} {{ carro_principal['Modelo'] }} {{ carro_principal['Ano'] }}</h1>
-                    <a href="#" class="button">Ver ficha técnica</a>
-                  
-                  <img :src="'/static/images/' + carros[0].ImagemFrontal" class="car-front-image">
-                  
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-indigo-600 text-white p-6 rounded-lg shadow-lg flex flex-col justify-center items-center text-center h-48">
+                    <h3 class="font-bold text-xl mb-2">Não era o que esperava?</h3>
+                    <p class="text-indigo-200 mb-4 text-base">Refaça o teste e encontre uma nova sugestão ideal para você.</p>
+                    <a href="/questionario" class="mt-auto bg-white text-indigo-600 font-bold py-2 px-5 rounded-lg hover:bg-gray-100 transition-colors">
+                        Refazer Teste
+                    </a>
                 </div>
-            </section>
 
-            <section class="retake-test" style="margin-top: -400px; margin-right: 80px;">
-                <h3>Refazer Teste</h3>
-                <p class="title">Gostaria de refazer o teste?</p>
-                <p class="subtitle">Clique no botão abaixo e encontre outra sugestão ideal para você.</p>
-                <a href="/questionario" class="button">Faça agora</a>
-            </section>
-        
-            <section class="recommendations" v-if="carros.length > 1">
-                <h3>Outras recomendações</h3>
-                <div class="car-list">
-                    {% for car in outros_carros %}
-                    <div class="car-card">
-                        <img src="{{ car['Imagem'] }}">
-                        <h4>{{ car['Modelo'] }}</h4>
-                        <p>{{ car['Marca'] }}</p>
-                        <p>{{ loop.index + 1 }}° recomendação</p>
+                <div class="bg-white p-6 rounded-lg shadow flex flex-col justify-between">
+                    <h3 class="font-bold text-xl text-gray-800 mb-4">Avaliações do Modelo</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex justify-between items-center"><span>Conforto:</span> <span class="font-bold text-white bg-indigo-500 px-3 py-1 rounded-full text-sm">{{carro_principal['Conforto']}}.0</span></li>
+                        <li class="flex justify-between items-center"><span>Espaço Interno:</span> <span class="font-bold text-white bg-indigo-500 px-3 py-1 rounded-full text-sm">{{carro_principal['Espaco']}}.0</span></li>
+                        <li class="flex justify-between items-center"><span>Preço:</span> <span class="font-bold text-white bg-indigo-500 px-3 py-1 rounded-full text-sm">{{carro_principal['Preco']}}.0</span></li>
+                        <li class="flex justify-between items-center"><span>Consumo:</span> <span class="font-bold text-white bg-indigo-500 px-3 py-1 rounded-full text-sm">{{carro_principal['Consumo']}}.0</span></li>
+                        <li class="flex justify-between items-center"><span>Manutenção:</span> <span class="font-bold text-white bg-indigo-500 px-3 py-1 rounded-full text-sm">{{carro_principal['Manutencao']}}.0</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Outras recomendações</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for car in outros_carros %}
+                <a href="/ficha/{{ car['ID_Carro'] }}" class="block bg-white rounded-lg shadow overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <img src="{{ car['Imagem'] }}" alt="Imagem do {{ car['Modelo'] }}" class="w-full h-40 object-contain">
+                    <div class="p-4">
+                        <h4 class="font-bold text-lg text-gray-900 truncate">{{ car['Modelo'] }}</h4>
+                        <p class="text-gray-600">{{ car['Marca'] }}</p>
+                        <p class="text-sm text-indigo-500 font-semibold mt-1">{{ loop.index + 1 }}° recomendação</p>
                     </div>
-                    {% endfor %}   
-                </div>
-            </section>
-
-            <section class="ratings">
-                <h3>Avaliações</h3>
-                <ul>
-                  <li>Interior: <span class="blue-star">⭐</span> {{carro_principal['Conforto']}}.0</li>
-                  <li>Exterior: <span class="blue-star">⭐</span> {{carro_principal['Espaco']}}.0</li>
-                  <li>Preço: <span class="blue-star">⭐</span> {{carro_principal['Preco']}}.0</li>
-                  <li>Performance: <span class="blue-star">⭐</span> {{carro_principal['Consumo']}}.0</li>
-                  <li>Manutenção: <span class="blue-star">⭐</span> {{carro_principal['Manutencao']}}.0</li>
-                </ul>
-            </section>
+                </a>
+            {% endfor %}
         </div>
-    <footer class="text-white pt-5 pb-0" style="background-color: #0F111E;">
-      <div class="container pb-4"> <div class="row g-4">
+    </section>
 
-          <div class="col-md-4">
-            <h2 class="h5 fw-semibold mb-3">FindMyCar</h2>
-            <p class="mb-3 text-light">Busque menos. Viva mais.</p>
-            <form class="d-flex rounded-pill overflow-hidden" style="background-color: #2A2D3E;">
-              <input
-                id="input-email"
-                type="email"
-                class="form-control border-0 text-white"
-                placeholder="Seu endereço de email"
-                style="background-color: #2A2D3E;"
-              />
-              <button
-                type="submit"
-                class="btn rounded-pill"
-                style="background-color: #4C65F1; color: #fff; white-space: nowrap;"
-              >
-                Cadastre-se
-              </button>
-            </form>
-          
-          </div>
+</div>
+{% endblock %}
 
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Sobre a Empresa</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sobre nós</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Serviços</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Termos</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Contato</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Links Rápidos</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Teste</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Anuncie</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Suporte</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Marcas</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Toyota</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Porsche</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Audi</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">BMW</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Ford</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Nissan</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Peugeot</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Volkswagen</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Tipos</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sedan</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Hatchback</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">SUV</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Híbrido</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Elétrico</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Caminhonete</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Van</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Conversível</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-top border-secondary mt-4 pt-3 px-3 pb-2" style="width: 100%;">
-        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row text-secondary small">
-          <p class="mb-2 mb-md-0">© 2025 FindMyCar. Todos os direitos reservados.</p>
-          <nav class="d-flex gap-3">
-            <a href="#" class="text-secondary text-decoration-none">Termos e Política</a>
-            <span aria-hidden="true">•</span>
-            <a href="#" class="text-secondary text-decoration-none">Privacidade</a>
-          </nav>
-        </div>
-      </div>
-    </footer>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% block scripts %}
+{% endblock %}

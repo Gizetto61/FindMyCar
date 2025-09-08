@@ -1,208 +1,52 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends 'base.html' %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>FindMyCar - Teste de Recomendação</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/questionario.css') }}"
-    />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../static/styles/questionario.css">
+{% block title %}FindMyCar - Teste de Recomendação{% endblock %}
 
-  </head>
-  <style>
-  footer input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    opacity: 1;
-  }
-</style>
-  <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark py-3 px-5" style="background-color: rgb(95, 103, 116); backdrop-filter: blur(6px);">
-            <div class="container-fluid px-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <ul class="navbar-nav flex-row flex-wrap justify-content-center order-2 order-md-1 mt-2 mt-md-0 ps-3">
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white-75" href="/">Home</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white-75" href="/">Ficha</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white-75" href="/">Carros</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white-75" href="/questionario">Teste</a>
-                    </li>
-                    <li class="nav-item mx-2">
-                        <a class="nav-link text-white-75" href="/">Sobre</a>
-                    </li>
-                </ul>
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/new_questionario.css') }}">
+{% endblock %}
 
-                <a class="navbar-brand order-1 order-md-2 fw-semibold d-flex" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)" href="#">FindMyCar</a>
+{% block content %}
+<div id="app">
+    <main class="container mx-auto my-8 max-w-4xl bg-white p-8 rounded-xl shadow-lg text-center">
 
-                <div class="dropdown order-3">
-                    <button type="button" class="btn text-white" style="background-color: rgba(95, 103, 116, 0.9);">
-                        {{session['user']['email']}}
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                      <li><a class="dropdown-item" href="/perfil">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                          </svg>
-                          Perfil
-                      </a></li>
-                      <li><a class="dropdown-item" href="/configuracoes">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16" style="margin-right: 8px;">
-                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311a1.464 1.464 0 0 1 .872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1-.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413-1.4-2.397 0-2.81l.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.858 2.929 2.929 0 0 1 0 5.858z"/>
-                          </svg>
-                          Configurações
-                      </a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="/logout">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" style="margin-right: 8px;">
-                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                          </svg>
-                          Logout
-                      </a></li>
-                    </ul>
-                </div>
+        <div v-if="isLoading" class="absolute inset-0 bg-white bg-opacity-90 flex flex-col justify-center items-center rounded-xl z-10">
+            <svg class="animate-spin h-12 w-12 text-indigo-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-    8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-700">Calculando suas recomendações...</h3>
+            <p class="text-gray-500">Por favor, aguarde um momento.</p>
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Teste de Recomendação</h1>
+        <h2 class="text-2xl text-gray-600 mb-12">[[ perguntaAtual.desc_pergunta ]]</h2>
+
+        <div class="w-full bg-gray-200 rounded-full h-4 mb-16">
+            <div class="bg-indigo-600 h-4 rounded-full transition-all duration-500 ease-in-out" 
+                 :style="{ width: progressPercentage + '%' }">
             </div>
-        </nav>
-
-      <main class="quiz_container">
-        <h1>Teste de Recomendação</h1>
-
-        <h2>[[ perguntaAtual.desc_pergunta ]]</h2>
-
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            :style="{ width: progressPercentage + '%' }"
-            :aria-valuenow="progressPercentage"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
         </div>
-        <div class="options">
-          <button
-            v-for="n in 5"
-            :key="n"
-            @click="responderPergunta(n)"
-            :class="['option', getOptionColorClass(n)]"
-            :data-value="n"
-          >
-            <br /><span>[[ getOptionDescription(n) ]]</span>
-          </button>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+            <button v-for="n in 5"
+                    :key="n"
+                    @click="responderPergunta(n)"
+                    :class="getOptionColorClass(n)"
+                    class="flex flex-col justify-center items-center h-32 p-4 text-lg font-medium bg-white border-2 rounded-xl cursor-pointer transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                
+                <span>[[ getOptionDescription(n) ]]</span>
+            </button>
         </div>
-        <button class="botao-voltar" @click="voltarPergunta()">
-          <p>Voltar</p>
-        </button>
-      </main>
+    </main>
+</div>
+{% endblock %}
 
-    <style>
-      footer input::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-        opacity: 1;
-      }
-    </style>
 
-    <footer class="text-white pt-5 pb-0" style="background-color: #0F111E;">
-      <div class="container pb-4"> <div class="row g-4">
-
-          <div class="col-md-4">
-            <h2 class="h5 fw-semibold mb-3">FindMyCar</h2>
-            <p class="mb-3 text-light">Busque menos. Viva mais.</p>
-            <form class="d-flex rounded-pill overflow-hidden" style="background-color: #2A2D3E;">
-              <input
-                id="input-email"
-                type="email"
-                class="form-control border-0 text-white"
-                placeholder="Seu endereço de email"
-                style="background-color: #2A2D3E;"
-              />
-              <button
-                type="submit"
-                class="btn rounded-pill"
-                style="background-color: #4C65F1; color: #fff; white-space: nowrap;"
-              >
-                Cadastre-se
-              </button>
-            </form>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Sobre a Empresa</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sobre nós</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Serviços</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Termos</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Contato</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Links Rápidos</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Teste</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Anuncie</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Suporte</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Marcas</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Toyota</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Porsche</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Audi</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">BMW</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Ford</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Nissan</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Peugeot</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Volkswagen</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-md-2">
-            <h6 class="fw-semibold mb-3">Tipos</h6>
-            <ul class="list-unstyled small">
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Sedan</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Hatchback</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">SUV</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Híbrido</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Elétrico</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Caminhonete</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Van</a></li>
-              <li><a href="#" class="text-light text-decoration-none d-block mb-1">Conversível</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-top border-secondary mt-4 pt-3 px-3 pb-2" style="width: 100%;">
-        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row text-secondary small">
-          <p class="mb-2 mb-md-0">© 2025 FindMyCar. Todos os direitos reservados.</p>
-          <nav class="d-flex gap-3">
-            <a href="#" class="text-secondary text-decoration-none">Termos e Política</a>
-            <span aria-hidden="true">•</span>
-            <a href="#" class="text-secondary text-decoration-none">Privacidade</a>
-          </nav>
-        </div>
-      </div>
-    </footer>
-
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script>
-      new Vue({
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script>
+    new Vue({
         el: "#app",
         delimiters: ["[[", "]]"],
 
@@ -239,6 +83,7 @@
               },
             ],
             i_pergunta_atual: 0,
+            isLoading: false
           };
         },
         computed: {
@@ -257,48 +102,44 @@
           },
         },
         methods: {
-          voltarPergunta(){
-            if (this.i_pergunta_atual > 0){
-              this.i_pergunta_atual--
-            }
-          },
+            responderPergunta: function (resposta) {
+                this.perguntas[this.i_pergunta_atual].resposta_pergunta = resposta;
 
-          responderPergunta: function (resposta) {
-            this.perguntas[this.i_pergunta_atual].resposta_pergunta = resposta;
+                if (this.i_pergunta_atual < this.perguntas.length - 1) {
+                    this.i_pergunta_atual++;
+                } else {
+                    this.isLoading = true;
+                    const payload = {
+                        conforto: this.perguntas[0].resposta_pergunta,
+                        consumo: this.perguntas[1].resposta_pergunta,
+                        tamanho: this.perguntas[2].resposta_pergunta,
+                        preco: this.perguntas[3].resposta_pergunta,
+                        manutencao: this.perguntas[4].resposta_pergunta,
+                    };
+                    fetch("/api/recomendar", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", },
+                        body: JSON.stringify(payload),
+                    })
+                    .then(response => response.json())
+                    .then(data => { window.location.href = "/recomendacao"; })
+                    .catch(error => { 
+                        console.error("Erro:", error); 
+                        this.isLoading = false;
+                    });
+                }
+            },
 
-            if (this.i_pergunta_atual < this.perguntas.length - 1) {
-              this.i_pergunta_atual++;
-            } else {
-              console.log("Todas as perguntas foram respondidas.");
-              console.log("Respostas Finais:", this.perguntas);
-
-              // Montar o payload
-              const payload = {
-                conforto: this.perguntas[0].resposta_pergunta,
-                consumo: this.perguntas[1].resposta_pergunta,
-                tamanho: this.perguntas[2].resposta_pergunta,
-                preco: this.perguntas[3].resposta_pergunta,
-                manutencao: this.perguntas[4].resposta_pergunta,
-              };
-              console.log(payload);
-
-              // Enviar para o back-end
-              fetch("/api/recomendar", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  window.location.href = "/recomendacao"; // página que mostrará o resultado
-                })
-                .catch((error) => {
-                  console.error("Erro ao obter recomendação:", error);
-                });
-            }
-          },
+            getOptionColorClass(value) {
+                const colorClasses = {
+                    1: 'border-red-500 text-red-600',
+                    2: 'border-orange-500 text-orange-600',
+                    3: 'border-yellow-500 text-yellow-600',
+                    4: 'border-lime-500 text-lime-600',
+                    5: 'border-green-500 text-green-600',
+                };
+                return colorClasses[value] || 'border-gray-300 text-gray-700';
+            },
           getOptionColorClass(value) {
             const classes = {
               1: "red",
@@ -321,6 +162,5 @@
           },
         },
       });
-    </script>
-  </body>
-</html>
+</script>
+{% endblock %}
