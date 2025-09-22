@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+{% block title %}FindMyCar - Termos{% endblock %} 
+{%block styles %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/termos.css') }}"
+/>
+{% endblock %} 
+{% block content %}
+    <header>
+    <h1>Termos de Uso</h1>
+    </header>
+
+    <main>
+    <p><strong>Última atualização:</strong> 21 de setembro de 2025</p>
+
+    <h2>1. Aceitação dos Termos</h2>
+    <p>
+        Ao utilizar este site e nossos serviços, você concorda em cumprir e estar
+        vinculado a estes Termos de Uso.
+    </p>
+
+    <h2>2. Uso permitido</h2>
+    <p>
+        Você se compromete a utilizar o sistema apenas para fins legais e de acordo
+        com a legislação vigente.
+    </p>
+
+    <h2>3. Conta do usuário</h2>
+    <p>
+        Ao criar uma conta, você deve fornecer informações verdadeiras e manter sua
+        senha em sigilo. Você é responsável por todas as atividades realizadas em
+        sua conta.
+    </p>
+
+    <h2>4. Propriedade intelectual</h2>
+    <p>
+        Todo o conteúdo do site é protegido por direitos autorais e não pode ser
+        copiado sem autorização.
+    </p>
+
+    <h2>5. Alterações nos Termos</h2>
+    <p>
+        Reservamo-nos o direito de atualizar estes Termos a qualquer momento. O uso
+        contínuo do site após alterações implica aceitação das novas condições.
+    </p>
+    </main>
+
+    <footer>© 2025 FindMyCar - Todos os direitos reservados</footer>
+{% endblock %}

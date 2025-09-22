@@ -228,6 +228,10 @@ def password_changed():
     flash("Senha atualizada com sucesso.")
     return redirect(url_for("perfil"))
 
+@app.route("/termos")
+def termos():
+    return render_template("termos.html", is_logged_in=('user' in session))
+
 @app.route('/api/recomendar', methods=['POST'])
 def recomendar_api():
     dados = request.json
