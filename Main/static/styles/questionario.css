@@ -1,12 +1,12 @@
-  main {
-    padding-bottom: 75px;
-    padding-top: 75px; 
+main {
+  padding-bottom: 75px;
+  padding-top: 75px; 
 }
 
-  /* Cores */
-  .red { border-color: #dc2626; color: #dc2626; }
-  .orange { border-color: #f97316; color: #f97316; }
-  .yellow { border-color: #eab308; color: #eab308; }
-  .lightgreen { border-color: #4ade80; color: #16a34a; }
-  .green { border-color: #22c55e; color: #15803d; }
+/* Cores */
+.red { border-color: #dc2626; color: #dc2626; }
+.orange { border-color: #f97316; color: #f97316; }
+.yellow { border-color: #eab308; color: #eab308; }
+.lightgreen { border-color: #4ade80; color: #16a34a; }
+.green { border-color: #22c55e; color: #15803d; }
 

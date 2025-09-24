@@ -189,33 +189,28 @@ def logout_questionario():
 
 @app.route("/perfil/alterar-senha", methods=["GET","POST"])
 def change_password():
-    # pegue o user_id do usuário logado
     user_id = session['user']['sub']
     email = session['user']['email']
 
     if not user_id:
         abort(401)
 
-    # só permite para database connection (credenciais gerenciadas pelo Auth0)
     if not user_id.startswith("auth0|"):
         flash("Sua senha é gerenciada pelo provedor (login social). Altere diretamente no Google/Apple/etc.")
         return redirect(url_for("perfil"))
 
-    # pega token da Management API (M2M)
     from m2m_auth0 import get_management_token
     mgmt_token = get_management_token()
 
-    # para onde voltar após trocar a senha
     result_url = url_for("password_changed", _external=True)
 
-    # cria o ticket
     r = requests.post(
         f"https://{AUTH0_DOMAIN}/api/v2/tickets/password-change",
         headers={"Authorization": f"Bearer {mgmt_token}", "Content-Type": "application/json"},
         json={
-            "user_id":  user_id,                 # usuário de DB: 'auth0|...'
-            "client_id": AUTH0_CLIENT_ID,        # opcional, recomendado no New UL
-            "ttl_sec": 900,                    # opcional (validade do ticket)
+            "user_id":  user_id,
+            "client_id": AUTH0_CLIENT_ID,
+            "ttl_sec": 900,
         },
         timeout=10
     )
@@ -265,6 +260,10 @@ def recomendar_api():
 
     return jsonify({'status': 'ok'})
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
