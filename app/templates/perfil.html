@@ -95,6 +95,8 @@
 
 
 {% block scripts %}
+    <script src="https://unpkg.com/imask"></script>
+    
     <script>
         const restrictToNumbers = (event) => {
             event.target.value = event.target.value.replace(/[^0-9]/g, '');
@@ -109,6 +111,31 @@
         }
         if (cpfInput) {
             cpfInput.addEventListener('input', restrictToNumbers);
+        }
+
+        const cpfElement = document.getElementById('profileCPF');
+        if (cpfElement) {
+            const cpfMaskOptions = {
+                mask: '000.000.000-00'
+            };
+            const cpfMask = IMask(cpfElement, cpfMaskOptions);
+        }
+
+        // Máscara para o Telefone (com 8 ou 9 dígitos no celular)
+        const phoneElement = document.getElementById('profilePhone');
+        if (phoneElement) {
+            const phoneMaskOptions = {
+                mask: [
+                    {
+                        mask: '(00) 0000-0000',
+                        lazy: false
+                    },
+                    {
+                        mask: '(00) 00000-0000'
+                    }
+                ]
+            };
+            const phoneMask = IMask(phoneElement, phoneMaskOptions);
         }
     </script>
 {% endblock %}
