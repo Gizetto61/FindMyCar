@@ -1,5 +1,5 @@
 from flask import render_template, session, redirect, url_for, abort, flash, request
-from app.core.database import update_user_profile
+from app.core.database import update_user_profile, get_carro, get_nota
 from app.main import bp
 
 # As rotas agora usam o decorador @bp.route em vez de @app.route
@@ -59,6 +59,32 @@ def update_perfil():
         flash("Ocorreu um erro ao atualizar o perfil.", "error")
         
     return redirect(url_for('main.perfil'))
+
+@bp.route("/ficha")
+@bp.route("/ficha/<int:car_id>")
+def ficha_tecnica(car_id=None):
+    is_logged_in = 'user' in session
+    
+    # Se car_id não for fornecido, usa ID 1 como padrão
+    if car_id is None:
+        car_id = 1
+# Tenta buscar do banco de dados
+    carro = get_carro(car_id)
+    print(carro) 
+    
+    # Se não encontrou o carro no banco, retorna 404
+    if carro is None:
+        abort(404)
+    
+    notas = get_nota(car_id)
+    media = 0
+    for n in notas:
+        media += float(notas[n])
+    nota_final = round(media/6, 2)
+    # Busca carros relacionados (se falhar, lista vazia)
+    return render_template('ficha.html', 
+                            carro=carro, notas=notas,nota_final=nota_final,
+                            is_logged_in=is_logged_in)
 
 @bp.route("/termos")
 def termos():

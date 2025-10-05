@@ -32,6 +32,44 @@ def get_carros():
         cursor.close()
         conn.close()
 
+def get_carro(id):
+    """Busca e retorna todos os carros do banco de dados."""
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        cursor.execute(f"SELECT * FROM Consulta_Carros WHERE id = '{id}';")
+        carro = cursor.fetchall()
+        carro = carro[0]
+        return carro
+    except Exception as e:
+        # Em uma aplicação real, você poderia logar o erro aqui
+        print(f"Ocorreu um erro ao buscar os carros: {e}")
+        return [] # Retorna uma lista vazia em caso de erro
+    finally:
+        # Garante que o cursor e a conexão sejam sempre fechados
+        cursor.close()
+        conn.close()
+
+def get_nota(id):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        cursor.execute(f"SELECT nota_preco as Preço, nota_espaco as Espaço, nota_potencia as Potência, nota_desempenho as Desempenho, nota_consumo as Consumo, nota_conforto as Conforto FROM Classificacao_Carros WHERE carro_id = '{id}';")
+        notas = cursor.fetchall()
+        notas = notas[0]
+        return notas
+    except Exception as e:
+        # Em uma aplicação real, você poderia logar o erro aqui
+        print(f"Ocorreu um erro ao buscar notas do carro: {e}")
+        return [] # Retorna uma lista vazia em caso de erro
+    finally:
+        # Garante que o cursor e a conexão sejam sempre fechados
+        cursor.close()
+        conn.close()
+
+
 def update_user_profile(user_id, profile_data):
     """
     Atualiza os dados de um usuário no banco de dados.

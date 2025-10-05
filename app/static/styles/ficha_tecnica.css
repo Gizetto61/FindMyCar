@@ -1,0 +1,103 @@
+/* Ficha Técnica - Estilos Personalizados */
+
+/* Animações suaves */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Galeria de imagens */
+#mainImage {
+    transition: transform 0.3s ease;
+}
+
+#mainImage:hover {
+    transform: scale(1.02);
+}
+
+/* Miniaturas ativas */
+.thumbnail-active {
+    border-color: #4F46E5 !important;
+}
+
+/* Tabelas responsivas */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.875rem;
+    }
+    
+    table td {
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Hover nos cards de características */
+.caracteristica-card {
+    transition: all 0.3s ease;
+}
+
+.caracteristica-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Barras de progresso animadas */
+.progress-bar {
+    transition: width 1s ease-in-out;
+}
+
+/* Botões com efeito */
+button, a.button {
+    transition: all 0.2s ease;
+}
+
+button:active, a.button:active {
+    transform: scale(0.98);
+}
+
+/* Mapa responsivo */
+#map {
+    min-height: 300px;
+}
+
+@media (max-width: 1024px) {
+    #map {
+        height: 250px;
+    }
+}
+
+/* Estilo para estrelas de avaliação */
+.star-rating {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+/* Cards de carros relacionados */
+.car-card {
+    transition: all 0.3s ease;
+}
+
+.car-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Ajustes para impressão */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    #map {
+        page-break-inside: avoid;
+    }
+}
