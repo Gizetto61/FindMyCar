@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}FindMyCar - Suporte{% endblock %}
+
+{% block content %}
+<section class="min-h-[80vh] py-16 px-6 flex flex-col items-center text-gray-800">
+  <div class="max-w-5xl w-full bg-white rounded-2xl shadow-xl p-10">
+    <h1 class="text-4xl font-bold text-center text-gray-900 mb-4">Central de Suporte</h1>
+    <p class="text-center text-gray-500 mb-12 text-lg">
+      Precisa de ajuda? Estamos aqui para garantir a melhor experiência com o FindMyCar.
+    </p>
+
+    <div class="mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6 text-center">Perguntas Frequentes (FAQ)</h2>
+      <div class="space-y-6">
+        <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+          <h3 class="font-semibold text-gray-900 mb-2">🔍 Como o sistema de recomendação funciona?</h3>
+          <p class="text-gray-600 text-sm">
+            O FindMyCar analisa suas preferências — como preço, consumo, conforto e desempenho — e utiliza algoritmos inteligentes
+            para sugerir os veículos que mais se encaixam no seu perfil.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+          <h3 class="font-semibold text-gray-900 mb-2">🧾 Preciso criar uma conta para usar o sistema?</h3>
+          <p class="text-gray-600 text-sm">
+            Sim, é necessário se cadastrar para que o sistema possa salvar suas preferências e gerar recomendações personalizadas.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mb-12">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Ainda precisa de ajuda?</h2>
+      <p class="text-gray-600 mb-8">Entre em contato com nossa equipe de suporte:</p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-6 text-gray-800">
+        <a href="mailto:suporte@findmycar.com" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition">
+          ✉️ suporte@findmycar.com
+        </a>
+        <a href="tel:+5511999999999" class="bg-gray-100 px-6 py-3 rounded-lg shadow hover:bg-gray-200 transition">
+          📞 +55 (11) 99999-9999
+        </a>
+      </div>
+    </div>
+
+
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      © <span id="year"></span> FindMyCar — Todos os direitos reservados.
+    </footer>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}FindMyCar - Serviços{% endblock %}
+
+{% block content %}
+<section class="min-h-[80vh] py-16 px-6 flex flex-col items-center text-gray-800">
+  <div class="max-w-6xl w-full bg-white rounded-2xl shadow-xl p-10 text-center">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Nossos Serviços</h1>
+    <p class="text-gray-500 mb-12 text-lg">
+      Tecnologia inteligente para ajudar você a encontrar o carro ideal.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-10 mt-10">
+
+      <div class="p-6 bg-gray-50 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png" alt="Sugestões inteligentes" class="w-20 mb-4">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">Sugestões Inteligentes</h2>
+        <p class="text-gray-600 text-sm">
+          O sistema aprende com suas escolhas anteriores e aprimora as próximas recomendações, garantindo resultados cada vez mais precisos.
+        </p>
+      </div>
+
+      <div class="p-6 bg-gray-50 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/3875/3875438.png" alt="Interface Amigável" class="w-20 mb-4">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">Interface Amigável e Acessível</h2>
+        <p class="text-gray-600 text-sm">
+          Navegue facilmente por uma interface intuitiva e responsiva, projetada para proporcionar uma experiência agradável em qualquer dispositivo.
+        </p>
+      </div>
+
+      <div class="p-6 bg-gray-50 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/166/166258.png" alt="Suporte Personalizado" class="w-20 mb-4">
+        <h2 class="text-xl font-semibold text-gray-900 mb-2">Suporte ao Usuário</h2>
+        <p class="text-gray-600 text-sm">
+          Nossa equipe está disponível para oferecer suporte e esclarecer dúvidas, garantindo que você aproveite ao máximo todos os recursos da plataforma.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 text-center max-w-3xl mx-auto">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Uma nova forma de escolher seu carro</h2>
+      <p class="text-gray-600 text-lg">
+        O <strong>FindMyCar</strong> transforma a busca por um automóvel em uma experiência inteligente e personalizada.  
+        Deixe a tecnologia simplificar sua escolha — e descubra qual carro realmente combina com você.
+      </p>
+    </div>
+
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      © <span id="year"></span> FindMyCar — Todos os direitos reservados.
+    </footer>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+{% endblock %}

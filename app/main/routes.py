@@ -64,6 +64,22 @@ def update_perfil():
 def termos():
     return render_template("termos.html", is_logged_in=('user' in session))
 
+@bp.route("/contatos")
+def contatos():
+    return render_template("contatos.html", is_logged_in=('user' in session))
+
+@bp.route("/sobre")
+def sobre():
+    return render_template("sobre.html", is_logged_in=('user' in session))
+
+@bp.route("/servicos")
+def servicos():
+    return render_template("servicos.html", is_logged_in=('user' in session))
+
+@bp.route("/suporte")
+def suporte():
+    return render_template("suporte.html", is_logged_in=('user' in session))
+
 # Manter redirecionamentos de rotas antigas, se necessário
 @bp.route("/homepage")
 def homepage():

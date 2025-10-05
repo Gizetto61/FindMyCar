@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}FindMyCar - Contatos{% endblock %}
+
+{% block content %}
+<section class="min-h-[80vh] flex items-center justify-center">
+  <div class="bg-white rounded-2xl shadow-xl p-10 w-full max-w-md text-center">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Entre em contato</h1>
+    <p class="text-gray-500 mb-8">Estamos prontos para ajudar você ✨</p>
+
+    <div class="space-y-4 text-left">
+      <div class="flex items-center gap-3">
+        <span class="text-blue-600 text-xl">📞</span>
+        <a href="tel:+5511999999999" class="text-gray-800 hover:text-blue-600 transition">+55 (11) 99999-9999</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-blue-600 text-xl">✉️</span>
+        <a href="mailto:contato@empresa.com" class="text-gray-800 hover:text-blue-600 transition">contato@empresa.com</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="text-blue-600 text-xl">📍</span>
+        <span class="text-gray-800">Rua Exemplo, 123 — Cidade</span>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+      <a href="#" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" class="w-5 h-5">
+        Instagram
+      </a>
+      <a href="#" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/facebook.svg" alt="Facebook" class="w-5 h-5">
+        Facebook
+      </a>
+      <a href="#" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="LinkedIn" class="w-5 h-5">
+        LinkedIn
+      </a>
+    </div>
+
+    <footer class="mt-10 text-gray-500 text-sm">
+      © <span id="year"></span> FindMyCar
+    </footer>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+{% endblock %}
