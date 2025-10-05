@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}FindMyCar - Sobre Nós{% endblock %}
+
+{% block content %}
+<section class="min-h-[80vh] flex flex-col justify-center items-center py-16 px-6 text-gray-800">
+  <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full p-10">
+    <h1 class="text-4xl font-bold text-center text-gray-900 mb-4">Sobre Nós</h1>
+    <p class="text-center text-gray-500 mb-10 text-lg">Conheça mais sobre a FindMyCar</p>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <p class="mb-4 leading-relaxed">
+          A <strong>FindMyCar</strong> nasceu com o propósito de facilitar a vida dos motoristas e empresas que precisam localizar, monitorar e gerenciar seus veículos de forma eficiente e segura.
+        </p>
+        <p class="mb-4 leading-relaxed">
+          Nossa missão é unir tecnologia e praticidade, oferecendo soluções que ajudam nossos clientes a economizar tempo, reduzir custos e aumentar a segurança no trânsito.
+        </p>
+        <p class="leading-relaxed">
+          Com uma equipe apaixonada por inovação, buscamos constantemente aprimorar nossos serviços, sempre ouvindo o feedback de quem mais importa: você.
+        </p>
+      </div>
+
+      <div class="flex justify-center">
+        <img src="" alt="Equipe FindMyCar" class="w-60 md:w-72 rounded-xl shadow-md">
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Nossa Visão</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Ser referência em soluções de rastreamento e conectividade automotiva no Brasil, 
+        contribuindo para um trânsito mais seguro e inteligente.
+      </p>
+    </div>
+
+    <div class="mt-12 text-center">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-3">Valores</h2>
+      <ul class="text-gray-600 flex flex-col sm:flex-row justify-center gap-6 flex-wrap">
+        <li class="bg-gray-100 px-4 py-2 rounded-lg">Inovação</li>
+        <li class="bg-gray-100 px-4 py-2 rounded-lg">Transparência</li>
+        <li class="bg-gray-100 px-4 py-2 rounded-lg">Segurança</li>
+        <li class="bg-gray-100 px-4 py-2 rounded-lg">Comprometimento</li>
+      </ul>
+    </div>
+
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      © <span id="year"></span> FindMyCar — Todos os direitos reservados.
+    </footer>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+{% endblock %}
