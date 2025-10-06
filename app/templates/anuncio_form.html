@@ -10,6 +10,67 @@
 
     <form @submit.prevent="enviarAnuncio" enctype="multipart/form-data" class="space-y-6">
 
+    <div>
+      <label class="block text-gray-700 font-medium mb-1">Modelo do Carro</label>
+      <select v-model="form.carro_id" name="carro_id" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="" disabled>Selecione o modelo do seu carro...</option>
+
+          {% for carro in lista_de_carros %}
+              <option value="{{ carro.id }}">{{ carro.marca }} {{ carro.modelo }}</option>
+          {% endfor %}
+
+      </select>
+    </div>
+
+    <div class="grid grid-cols-2 gap-6">
+    <div>
+        <label class="block text-gray-700 font-medium mb-1">Ano de Fabricação</label>
+        <select v-model="form.ano_fabricacao" required class="w-full p-3 border border-gray-300 rounded-lg ...">
+            <option value="">Selecione...</option>
+            {% for ano in range(2026, 1959, -1) %}
+                <option value="{{ ano }}">{{ ano }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block text-gray-700 font-medium mb-1">Ano do Modelo</label>
+        <select v-model="form.ano_modelo" required class="w-full p-3 border border-gray-300 rounded-lg ...">
+            <option value="">Selecione...</option>
+            {% for ano in range(2026, 1959, -1) %}
+                <option value="{{ ano }}">{{ ano }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div>
+    <label class="block text-gray-700 font-medium mb-1">Cor</label>
+    <select v-model="form.cor" required
+            class="w-full p-3 border border-gray-300 rounded-lg ...">
+        <option value="">Selecione...</option>
+        <option value="Branco">Branco</option>
+        <option value="Preto">Preto</option>
+        <option value="Prata">Prata</option>
+        <option value="Cinza">Cinza</option>
+        <option value="Vermelho">Vermelho</option>
+        <option value="Azul">Azul</option>
+        <option value="Verde">Verde</option>
+        <option value="Amarelo">Amarelo</option>
+        <option value="Marrom">Marrom</option>
+        <option value="Outra">Outra</option>
+    </select>
+</div>
+
+<div>
+    <label for="precoAnuncio" class="block text-gray-700 font-medium mb-1">Preço</label>
+    <div class="relative">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">R$</span>
+        <input id="precoAnuncio" type="text" required placeholder="0,00"
+               class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+</div>
+
       <div>
         <label class="block text-gray-700 font-medium mb-1">Quilometragem</label>
         <input v-model="form.km" type="number" required placeholder="Ex: 45.000"
@@ -21,8 +82,8 @@
         <select v-model="form.transmissao" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">Selecione...</option>
-          <option value="manual">Manual</option>
-          <option value="automatica">Automática</option>
+          <option value="Manual">Manual</option>
+          <option value="Automático">Automático</option>
         </select>
       </div>
 
@@ -31,11 +92,9 @@
         <select v-model="form.condicao" required
                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option value="">Selecione...</option>
-          <option value="novo">Novo</option>
-          <option value="seminovo">Seminovo</option>
-          <option value="usado">Usado</option>
-          <option value="batido">Batido</option>
-          <option value="para-pecas">Para peças</option>
+          <option value="Novo">Novo</option>
+          <option value="Seminovo">Seminovo</option>
+          <option value="Para-peças">Para peças</option>
         </select>
       </div>
 
@@ -86,7 +145,7 @@
 
       <div>
         <label class="block text-gray-700 font-medium mb-1">Fotos do carro</label>
-        <input type="file" accept="image/*" multiple @change="handleFiles"
+        <input type="file" accept="image/jpeg, image/png" multiple @change="handleFiles"
                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" />
         <p class="text-sm text-gray-500 mt-1">Máximo de 4 imagens (.jpg, .png)</p>
 
@@ -123,6 +182,11 @@ const { createApp, ref, onMounted, watch } = Vue;
 createApp({
   setup() {
     const form = ref({
+      carro_id: "",
+      ano_fabricacao: "",
+      ano_modelo: "",
+      cor: "",
+      preco: "",
       km: "",
       transmissao: "",
       condicao: "",
@@ -133,98 +197,144 @@ createApp({
       endereco: "",
     });
 
+    const precoInput = ref(null);
+
+ 
+    onMounted(() => {
+        // Inicializa a máscara do telefone (código existente)
+        // ...
+
+        // 3. INICIALIZA A MÁSCARA DE MOEDA NO INPUT DE PREÇO
+        const precoElement = document.getElementById('precoAnuncio');
+        if (precoElement) {
+            const precoMask = IMask(precoElement, {
+                mask: Number, // Permite apenas números
+                scale: 2,     // Duas casas decimais
+                thousandsSeparator: '.', // Separador de milhar
+                padFractionalZeros: true, // Adiciona ",00" se não houver centavos
+                normalizeZeros: true,
+                radix: ',', // Separador decimal
+                mapToRadix: ['.'],
+            });
+
+            // Ouve as mudanças e atualiza o 'form.preco' com o valor numérico (sem máscara)
+            precoMask.on('accept', () => {
+                form.value.preco = precoMask.unmaskedValue;
+            });
+        }
+    });
+
     const usarTelefonePerfil = ref(false);
     const telefoneInput = ref(null);
 
-    const previews = ref([]);
-    const arquivos = ref([]);
+    // O array 'previews' já contém as strings base64, então não precisamos de um array 'arquivos' separado.
+    const imagensBase64 = ref([]); 
     const erroImagens = ref("");
-
-  
+ 
     onMounted(() => {
-    if (telefoneInput.value) {
-        IMask(telefoneInput.value, {
-        mask: [
-            {
-            mask: '(00) 0000-0000' 
-            },
-            {
-            mask: '(00) 00000-0000'
-            }
-        ]
-        });
-    }
+        if (telefoneInput.value) {
+            IMask(telefoneInput.value, {
+                mask: [
+                    { mask: '(00) 0000-0000' },
+                    { mask: '(00) 00000-0000' }
+                ]
+            });
+        }
     });
 
     watch(usarTelefonePerfil, (val) => {
-      if (val) form.value.telefone = "";
+        if (val) form.value.telefone = "";
     });
 
     function handleFiles(e) {
-      const files = Array.from(e.target.files);
-      erroImagens.value = "";
+        const files = Array.from(e.target.files);
+        erroImagens.value = "";
 
-      if (files.length + arquivos.value.length > 4) {
-        erroImagens.value = "Você pode enviar no máximo 4 imagens.";
-        return;
-      }
-
-      files.forEach((file) => {
-        if (!file.type.startsWith("image/")) {
-          erroImagens.value = "Apenas arquivos de imagem são permitidos.";
-          return;
+        if (files.length + imagensBase64.value.length > 4) {
+            erroImagens.value = "Você pode enviar no máximo 4 imagens.";
+            e.target.value = ""; // Limpa o input de arquivo
+            return;
         }
-        const reader = new FileReader();
-        reader.onload = (ev) => previews.value.push(ev.target.result);
-        reader.readAsDataURL(file);
-        arquivos.value.push(file);
-      });
+
+        files.forEach((file) => {
+            if (!file.type.startsWith("image/")) {
+                erroImagens.value = "Apenas arquivos de imagem são permitidos.";
+                return;
+            }
+            const reader = new FileReader();
+            
+            // Quando a leitura do arquivo estiver completa...
+            reader.onload = (ev) => {
+                // ...adicionamos a string base64 diretamente ao nosso array.
+                imagensBase64.value.push(ev.target.result); 
+            };
+            
+            // Inicia a leitura do arquivo, que o converte para uma string Data URL (base64)
+            reader.readAsDataURL(file);
+        });
     }
 
     function removeImage(index) {
-      arquivos.value.splice(index, 1);
-      previews.value.splice(index, 1);
+        // Remove a imagem tanto do array de dados quanto da pré-visualização.
+        imagensBase64.value.splice(index, 1);
     }
 
     function validarTelefone(telefone) {
-      if (!telefone) return true; 
-      const numeros = telefone.replace(/\D/g, "");
-      return numeros.length === 10 || numeros.length === 11;
+        if (!telefone) return true; 
+        const numeros = telefone.replace(/\D/g, "");
+        return numeros.length === 10 || numeros.length === 11;
     }
 
+    // A pré-visualização agora usa diretamente o array de strings base64.
+    const previews = imagensBase64;
+
     function enviarAnuncio() {
-      if (arquivos.value.length === 0) {
-        erroImagens.value = "Envie pelo menos uma imagem.";
-        return;
-      }
-
-      if (!validarTelefone(form.value.telefone) && !usarTelefonePerfil.value) {
-        alert("Digite um telefone válido com DDD (10 ou 11 dígitos).");
-        return;
-      }
-
-      const data = new FormData();
-      Object.keys(form.value).forEach((key) => {
-        if (key === "telefone" && usarTelefonePerfil.value) {
-          data.append("telefone", "");
-        } else {
-          if (key === "telefone") {
-            data.append(key, form.value.telefone.replace(/\D/g, ""));
-          } else {
-            data.append(key, form.value[key]);
-          }
+        if (imagensBase64.value.length === 0) {
+            erroImagens.value = "Envie pelo menos uma imagem.";
+            return;
         }
-      });
 
-      arquivos.value.forEach((file) => data.append("imagens", file));
+        if (!validarTelefone(form.value.telefone) && !usarTelefonePerfil.value) {
+            alert("Digite um telefone válido com DDD (10 ou 11 dígitos).");
+            return;
+        }
 
-      fetch("/api/anunciar", {
-        method: "POST",
-        body: data,
-      })
-        .then((res) => res.json())
-        .then(() => alert("Anúncio enviado com sucesso!"))
-        .catch((err) => alert("Erro ao enviar: " + err));
+        // 1. Monta o objeto JSON para envio
+        const payload = {
+            ...form.value, // Copia todos os campos do formulário
+            imagens: imagensBase64.value, // Adiciona o array de strings base64
+        };
+        
+        // Trata o campo telefone
+        if (usarTelefonePerfil.value) {
+            payload.telefone = "usar_perfil"; // Envia um sinalizador para o backend
+        } else {
+            payload.telefone = form.value.telefone.replace(/\D/g, "");
+        }
+
+        // 2. Envia o JSON para o backend
+        fetch("/api/anunciar", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json', // O cabeçalho agora é JSON
+            },
+            body: JSON.stringify(payload), // O corpo é a string JSON do nosso objeto
+        })
+        .then((res) => {
+            if (!res.ok) {
+                // Se a resposta não for OK, lança um erro para ser pego pelo .catch()
+                throw new Error('Falha na resposta do servidor.');
+            }
+            return res.json();
+        })
+        .then(() => {
+            alert("Anúncio enviado com sucesso!");
+            // Aqui você pode redirecionar o usuário ou limpar o formulário
+        })
+        .catch((err) => {
+            console.error("Erro ao enviar:", err);
+            alert("Erro ao enviar o anúncio. Tente novamente.");
+        });
     }
 
     return {

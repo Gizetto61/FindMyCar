@@ -1,5 +1,5 @@
 from flask import render_template, session, redirect, url_for, abort, flash, request
-from app.core.database import update_user_profile, get_carro, get_nota
+from app.core.database import update_user_profile, get_carro, get_nota, get_all_car_models, get_anuncio, get_imagens_by_anuncio_id
 from app.main import bp
 
 # As rotas agora usam o decorador @bp.route em vez de @app.route
@@ -8,9 +8,6 @@ from app.main import bp
 def start():
     # Verifica se o usuário está logado para decidir a página inicial
     is_logged_in = 'user' in session
-    if is_logged_in:
-        # Se logado, pode ir direto para o questionário ou outra página interna
-        return redirect(url_for("main.questionario"))
     return render_template("homepage.html", is_logged_in=is_logged_in)
 
 @bp.route("/questionario")
@@ -70,7 +67,6 @@ def ficha_tecnica(car_id=None):
         car_id = 1
 # Tenta buscar do banco de dados
     carro = get_carro(car_id)
-    print(carro) 
     
     # Se não encontrou o carro no banco, retorna 404
     if carro is None:
@@ -84,6 +80,36 @@ def ficha_tecnica(car_id=None):
     # Busca carros relacionados (se falhar, lista vazia)
     return render_template('ficha.html', 
                             carro=carro, notas=notas,nota_final=nota_final,
+                            is_logged_in=is_logged_in)
+
+@bp.route("/anuncio")
+@bp.route("/anuncio/<int:anuncio_id>")
+def anuncio(anuncio_id=None):
+    is_logged_in = 'user' in session
+    
+    # Se car_id não for fornecido, usa ID 1 como padrão
+    if anuncio_id is None:
+        anuncio_id = 20
+
+    anuncio = get_anuncio(anuncio_id)
+    car_id = anuncio['fk_carro_id']
+
+    imagens_do_anuncio = get_imagens_by_anuncio_id(anuncio_id)
+# Tenta buscar do banco de dados
+    carro = get_carro(car_id)
+    
+    # Se não encontrou o carro no banco, retorna 404
+    if carro is None:
+        abort(404)
+    
+    notas = get_nota(car_id)
+    media = 0
+    for n in notas:
+        media += float(notas[n])
+    nota_final = round(media/6, 2)
+    # Busca carros relacionados (se falhar, lista vazia)
+    return render_template('anuncio.html', 
+                            carro=carro, notas=notas,nota_final=nota_final, anuncio=anuncio, imagens=imagens_do_anuncio,
                             is_logged_in=is_logged_in)
 
 @bp.route("/termos")
@@ -106,9 +132,21 @@ def servicos():
 def suporte():
     return render_template("suporte.html", is_logged_in=('user' in session))
 
-@bp.route("/anuncio_form")
-def anuncio_form():
-    return render_template("anuncio_form.html", is_logged_in=('user' in session))
+@bp.route('/anunciar')
+def criar_anuncio_form():
+    if 'user' not in session:
+        return redirect(url_for('auth.login'))
+    
+    # Busca a lista de todos os carros no banco
+    lista_de_carros = get_all_car_models()
+    
+    # Renderiza o template do formulário, passando a lista de carros
+    return render_template(
+        'anuncio_form.html', # O nome do seu arquivo HTML do formulário
+        lista_de_carros=lista_de_carros, 
+        is_logged_in=True,
+        use_vue=True # Se você estiver usando Vue nesta página
+    )
 
 # Manter redirecionamentos de rotas antigas, se necessário
 @bp.route("/homepage")

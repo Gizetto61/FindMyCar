@@ -10,6 +10,7 @@ from app import oauth
 
 # Importa as funções do nosso novo módulo de serviço
 from app.services.auth0_service import create_password_change_ticket, resend_verification_email
+from app.core.database import get_user_by_email
 
 # --- Rotas de Login, Cadastro e Callback ---
 
@@ -38,10 +39,23 @@ def authorize():
 
     try:
         token = oauth.auth0_google.authorize_access_token()
-        session['user'] = token['userinfo']
+        user_info_from_auth0 = token['userinfo']
+        user_email = user_info_from_auth0.get('email')
+
+        if not user_email:
+            flash("Não foi possível obter o e-mail do seu perfil. Tente novamente.", "error")
+
+        user_from_db = get_user_by_email(user_email)
+        if not user_from_db:
+            # Este erro pode acontecer se a sua Action no Auth0 falhar ao criar o usuário.
+            flash("Seu perfil não foi encontrado em nosso sistema. Tente se cadastrar novamente.", "error")
+            return redirect(url_for("main.start"))
+        session['user'] = user_info_from_auth0
+        session['user_db_id'] = user_from_db['id']    
+        print(f"Login bem-sucedido! E-mail: {user_email}, ID do Banco: {session['user_db_id']}")
+
         return redirect(url_for('main.questionario'))
-    except Exception as e:
-        # Lidar com possíveis erros na autorização
+    except Exception as e:  
         flash(f"Erro durante a autenticação: {e}", "error")
         return redirect(url_for("main.start"))
 
