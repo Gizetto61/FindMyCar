@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="min-h-[85vh] py-16 px-6 flex flex-col items-center text-gray-800">
+  <div id="app" class="max-w-4xl w-full bg-white rounded-2xl shadow-xl p-10">
+    <h1 class="text-4xl font-bold text-center text-gray-900 mb-6">Anuncie seu carro</h1>
+    <p class="text-center text-gray-500 mb-10 text-lg">
+      Preencha os campos abaixo para anunciar seu veículo no <strong>FindMyCar</strong>.
+    </p>
+
+    <form @submit.prevent="enviarAnuncio" enctype="multipart/form-data" class="space-y-6">
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Quilometragem</label>
+        <input v-model="form.km" type="number" required placeholder="Ex: 45.000"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" />
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Transmissão</label>
+        <select v-model="form.transmissao" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="manual">Manual</option>
+          <option value="automatica">Automática</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Condição do carro</label>
+        <select v-model="form.condicao" required
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="">Selecione...</option>
+          <option value="novo">Novo</option>
+          <option value="seminovo">Seminovo</option>
+          <option value="usado">Usado</option>
+          <option value="batido">Batido</option>
+          <option value="para-pecas">Para peças</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Observações</label>
+        <textarea v-model="form.observacoes" rows="4" placeholder="Detalhes adicionais..."
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Telefone para contato</label>
+        <div class="flex items-center gap-2 mb-2">
+          <input type="checkbox" v-model="usarTelefonePerfil" id="usar-perfil" />
+          <label for="usar-perfil" class="text-gray-600 text-sm">Usar telefone do perfil</label>
+        </div>
+        <input ref="telefoneInput" v-model="form.telefone" :disabled="usarTelefonePerfil"
+               :placeholder="usarTelefonePerfil ? 'Usando telefone do perfil' : '(00) 00000-0000'"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Estado</label>
+          <select v-model="form.estado" required
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-900">
+            <option value="">Selecione...</option>
+            <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option>
+            <option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option>
+            <option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option>
+            <option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+            <option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option>
+            <option>SE</option><option>TO</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Cidade</label>
+          <input v-model="form.cidade" required placeholder="Digite sua cidade"
+                 class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Endereço (opcional)</label>
+        <input v-model="form.endereco" placeholder="Rua, número, bairro..."
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1">Fotos do carro</label>
+        <input type="file" accept="image/*" multiple @change="handleFiles"
+               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50" />
+        <p class="text-sm text-gray-500 mt-1">Máximo de 4 imagens (.jpg, .png)</p>
+
+        <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div v-for="(img, i) in previews" :key="i" class="relative group">
+            <img :src="img" class="w-full h-32 object-cover rounded-lg shadow" />
+            <button type="button" @click="removeImage(i)"
+                    class="absolute -top-2 -right-2 bg-white text-gray-700 rounded-full p-1 shadow opacity-0 group-hover:opacity-100 transition">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <p v-if="erroImagens" class="text-sm text-red-600 mt-2">{{ erroImagens }}</p>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit"
+                class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition">
+          Enviar anúncio
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/imask"></script>
+
+<script>
+const { createApp, ref, onMounted, watch } = Vue;
+
+createApp({
+  setup() {
+    const form = ref({
+      km: "",
+      transmissao: "",
+      condicao: "",
+      observacoes: "",
+      telefone: "",
+      estado: "",
+      cidade: "",
+      endereco: "",
+    });
+
+    const usarTelefonePerfil = ref(false);
+    const telefoneInput = ref(null);
+
+    const previews = ref([]);
+    const arquivos = ref([]);
+    const erroImagens = ref("");
+
+  
+    onMounted(() => {
+    if (telefoneInput.value) {
+        IMask(telefoneInput.value, {
+        mask: [
+            {
+            mask: '(00) 0000-0000' 
+            },
+            {
+            mask: '(00) 00000-0000'
+            }
+        ]
+        });
+    }
+    });
+
+    watch(usarTelefonePerfil, (val) => {
+      if (val) form.value.telefone = "";
+    });
+
+    function handleFiles(e) {
+      const files = Array.from(e.target.files);
+      erroImagens.value = "";
+
+      if (files.length + arquivos.value.length > 4) {
+        erroImagens.value = "Você pode enviar no máximo 4 imagens.";
+        return;
+      }
+
+      files.forEach((file) => {
+        if (!file.type.startsWith("image/")) {
+          erroImagens.value = "Apenas arquivos de imagem são permitidos.";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (ev) => previews.value.push(ev.target.result);
+        reader.readAsDataURL(file);
+        arquivos.value.push(file);
+      });
+    }
+
+    function removeImage(index) {
+      arquivos.value.splice(index, 1);
+      previews.value.splice(index, 1);
+    }
+
+    function validarTelefone(telefone) {
+      if (!telefone) return true; 
+      const numeros = telefone.replace(/\D/g, "");
+      return numeros.length === 10 || numeros.length === 11;
+    }
+
+    function enviarAnuncio() {
+      if (arquivos.value.length === 0) {
+        erroImagens.value = "Envie pelo menos uma imagem.";
+        return;
+      }
+
+      if (!validarTelefone(form.value.telefone) && !usarTelefonePerfil.value) {
+        alert("Digite um telefone válido com DDD (10 ou 11 dígitos).");
+        return;
+      }
+
+      const data = new FormData();
+      Object.keys(form.value).forEach((key) => {
+        if (key === "telefone" && usarTelefonePerfil.value) {
+          data.append("telefone", "");
+        } else {
+          if (key === "telefone") {
+            data.append(key, form.value.telefone.replace(/\D/g, ""));
+          } else {
+            data.append(key, form.value[key]);
+          }
+        }
+      });
+
+      arquivos.value.forEach((file) => data.append("imagens", file));
+
+      fetch("/api/anunciar", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then(() => alert("Anúncio enviado com sucesso!"))
+        .catch((err) => alert("Erro ao enviar: " + err));
+    }
+
+    return {
+      form,
+      usarTelefonePerfil,
+      telefoneInput,
+      previews,
+      erroImagens,
+      handleFiles,
+      removeImage,
+      enviarAnuncio,
+    };
+  },
+}).mount("#app");
+</script>
+
+{% endblock %}

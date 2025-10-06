@@ -80,6 +80,10 @@ def servicos():
 def suporte():
     return render_template("suporte.html", is_logged_in=('user' in session))
 
+@bp.route("/anuncio_form")
+def anuncio_form():
+    return render_template("anuncio_form.html", is_logged_in=('user' in session))
+
 # Manter redirecionamentos de rotas antigas, se necessário
 @bp.route("/homepage")
 def homepage():
