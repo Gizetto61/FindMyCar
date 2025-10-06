@@ -1,5 +1,6 @@
 from flask import render_template, session, redirect, url_for, abort, flash, request
-from app.core.database import update_user_profile, get_carro, get_nota, get_all_car_models, get_anuncio, get_imagens_by_anuncio_id
+from app.core.database import update_user_profile, get_carro, get_nota, get_all_car_models, get_anuncio, get_imagens_by_anuncio_id, get_carros_by_ids
+
 from app.main import bp
 
 # As rotas agora usam o decorador @bp.route em vez de @app.route
@@ -18,19 +19,28 @@ def questionario():
 
 @bp.route('/recomendacao')
 def recomendacao():
-    if 'user' in session:
-        if "recomendacoes" in session:
-            top_5 = session.get('recomendacoes')
-            if not top_5:
-                return redirect(url_for('main.questionario'))
-            
-            return render_template('recomendacao.html',
-                                   carro_principal=top_5[0],
-                                   outros_carros=top_5[1:], 
-                                   is_logged_in=True)
-        else:
-            return redirect(url_for("main.questionario"))
-    return redirect(url_for("auth.login"))
+    if 'user' not in session:
+        return redirect(url_for("auth.login"))
+
+    # Pega a lista de IDs da sessão
+    recomendacoes_ids = session.get('recomendacoes_ids')
+
+    if not recomendacoes_ids:
+        # Se não houver IDs, manda o usuário fazer o teste
+        return redirect(url_for("main.questionario"))
+    
+    # Busca no banco os dados completos apenas dos carros recomendados
+    top_5 = get_carros_by_ids(recomendacoes_ids)
+ 
+    if not top_5:
+        # Se, por algum motivo, os carros não forem encontrados, manda refazer o teste
+        flash("Não foi possível encontrar as recomendações. Por favor, tente novamente.", "warning")
+        return redirect(url_for('main.questionario'))
+
+    return render_template('recomendacao.html',
+                           carro_principal=top_5[0],
+                           outros_carros=top_5[1:], 
+                           is_logged_in=True)
 
 @bp.route("/perfil")
 def perfil():

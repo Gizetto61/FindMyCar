@@ -321,15 +321,18 @@ createApp({
             body: JSON.stringify(payload), // O corpo é a string JSON do nosso objeto
         })
         .then((res) => {
-            if (!res.ok) {
-                // Se a resposta não for OK, lança um erro para ser pego pelo .catch()
-                throw new Error('Falha na resposta do servidor.');
-            }
+            if (!res.ok) throw new Error('Falha na resposta do servidor.');
             return res.json();
         })
-        .then(() => {
-            alert("Anúncio enviado com sucesso!");
-            // Aqui você pode redirecionar o usuário ou limpar o formulário
+        .then((result) => {
+            // 1. Pega o ID do anúncio da resposta da API
+            const novoAnuncioId = result.anuncio_id;
+            
+            // 2. Monta a URL para a página do novo anúncio
+            const urlDestino = `/anuncio/${novoAnuncioId}`;
+            
+            // 3. Redireciona o usuário para a nova página
+            window.location.href = urlDestino;
         })
         .catch((err) => {
             console.error("Erro ao enviar:", err);

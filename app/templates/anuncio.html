@@ -211,23 +211,18 @@
     <div class="container mx-auto px-4 md:px-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-8">Localização do Vendedor</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div>
-                <div id="map" class="w-full h-80 bg-gray-300 rounded-xl overflow-hidden">
-                    <!--<img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/,,13,0/800x400@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" alt="Mapa" class="w-full h-full object-cover">-->
-                </div>
-            </div>
             <div class="flex flex-col justify-center">
                 <h3 class="text-xl font-bold text-gray-900 mb-4">Informações de Contato</h3>
                 <div class="space-y-4">
-                    {% if anuncio.Estado %}
+                    {% if anuncio.Cidade %}
                     <div class="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         <div>
-                            <p class="text-sm text-gray-500">Endereço</p>
-                            <p class="font-semibold text-gray-900">{{ anuncio.Estado }}</p>
+                            <p class="text-sm text-gray-500">Cidade</p>
+                            <p class="font-semibold text-gray-900">{{ anuncio.Cidade }} - {{ anuncio.Estado }}</p>
                         </div>
                     </div>
                     {% endif %}

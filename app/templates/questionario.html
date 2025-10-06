@@ -52,41 +52,22 @@
 
         data() {
           return {
+            // ARRAY DE PERGUNTAS ATUALIZADO PARA 6 ITENS
             perguntas: [
-              {
-                numero_pergunta: 1,
-                desc_pergunta:
-                  "O quanto o conforto interno importa na sua decisão?",
-                resposta_pergunta: 0,
-              },
-              {
-                numero_pergunta: 2,
-                desc_pergunta:
-                  "Qual a sua prioridade em termos de economia de combustível?",
-                resposta_pergunta: 0,
-              },
-              {
-                numero_pergunta: 3,
-                desc_pergunta: "Qual a importância do espaço de seu carro?",
-                resposta_pergunta: 0,
-              },
-              {
-                numero_pergunta: 4,
-                desc_pergunta:
-                  "Qual a importância do preço de compra de um carro novo?",
-                resposta_pergunta: 0,
-              },
-              {
-                numero_pergunta: 5,
-                desc_pergunta: "Qual a importância do preço de manutenção?",
-                resposta_pergunta: 0,
-              },
+              { numero_pergunta: 1, desc_pergunta: "O quanto o conforto interno importa na sua decisão?", chave: 'conforto' },
+              { numero_pergunta: 2, desc_pergunta: "Qual a sua prioridade em termos de economia de combustível?", chave: 'consumo' },
+              { numero_pergunta: 3, desc_pergunta: "Qual a importância do espaço interno do seu carro?", chave: 'espaco' },
+              { numero_pergunta: 4, desc_pergunta: "Qual a importância do preço de compra de um carro?", chave: 'preco' },
+              { numero_pergunta: 5, desc_pergunta: "Qual a importância da potência do motor para você?", chave: 'potencia' },
+              { numero_pergunta: 6, desc_pergunta: "O quão importante é o desempenho geral (aceleração, dirigibilidade)?", chave: 'desempenho' },
             ],
+            respostas: {}, // Objeto para armazenar as respostas
             i_pergunta_atual: 0,
             isLoading: false
           };
         },
-        computed: {
+        
+computed: {
           perguntaAtual() {
             if (this.i_pergunta_atual >= this.perguntas.length) {
               return this.perguntas[this.perguntas.length - 1];
@@ -103,22 +84,21 @@
         },
         methods: {
             responderPergunta: function (resposta) {
-                this.perguntas[this.i_pergunta_atual].resposta_pergunta = resposta;
+                // Salva a resposta usando a 'chave' da pergunta
+                const chaveAtual = this.perguntas[this.i_pergunta_atual].chave;
+                this.respostas[chaveAtual] = resposta;
 
                 if (this.i_pergunta_atual < this.perguntas.length - 1) {
                     this.i_pergunta_atual++;
                 } else {
                     this.isLoading = true;
-                    const payload = {
-                        conforto: this.perguntas[0].resposta_pergunta,
-                        consumo: this.perguntas[1].resposta_pergunta,
-                        tamanho: this.perguntas[2].resposta_pergunta,
-                        preco: this.perguntas[3].resposta_pergunta,
-                        manutencao: this.perguntas[4].resposta_pergunta,
-                    };
+                    
+                    // PAYLOAD ATUALIZADO: Agora é construído a partir do objeto de respostas
+                    const payload = this.respostas;
+                    
                     fetch("/api/recomendar", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json", },
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(payload),
                     })
                     .then(response => response.json())
@@ -126,10 +106,10 @@
                     .catch(error => { 
                         console.error("Erro:", error); 
                         this.isLoading = false;
+                        alert("Ocorreu um erro ao buscar sua recomendação. Tente novamente.");
                     });
                 }
             },
-
             getOptionColorClass(value) {
                 const colorClasses = {
                     1: 'border-red-500 text-red-600',
@@ -140,26 +120,16 @@
                 };
                 return colorClasses[value] || 'border-gray-300 text-gray-700';
             },
-          getOptionColorClass(value) {
-            const classes = {
-              1: "red",
-              2: "orange",
-              3: "yellow",
-              4: "lightgreen",
-              5: "green",
-            };
-            return classes[value];
-          },
-          getOptionDescription(value) {
-            const descriptions = {
-              1: "Nada importante",
-              2: "Pouco importante",
-              3: "Neutro",
-              4: "Importante",
-              5: "Muito importante",
-            };
-            return descriptions[value];
-          },
+            getOptionDescription(value) {
+                const descriptions = {
+                  1: "Nada importante",
+                  2: "Pouco importante",
+                  3: "Neutro",
+                  4: "Importante",
+                  5: "Muito importante",
+                };
+                return descriptions[value];
+            },
         },
       });
 </script>

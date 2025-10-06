@@ -14,21 +14,33 @@ def get_db_connection():
     )
     return conn
 
-def get_carros():
-    """Busca e retorna todos os carros do banco de dados."""
+def get_carros_com_avaliacoes():
+    """
+    Busca todos os carros e suas respectivas avaliações, juntando as tabelas.
+    """
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     
     try:
-        cursor.execute("SELECT * FROM Carro")
+        # Query que une a tabela de carros (Consulta_Carros) com a de avaliações
+        # Assumindo que a nova tabela de avaliações se chama 'AvaliacoesCarros'
+        query = """
+            SELECT 
+                c.*, 
+                a.nota_preco, a.nota_espaco, a.nota_potencia, 
+                a.nota_desempenho, a.nota_consumo, a.nota_conforto
+            FROM 
+                Consulta_Carros c
+            JOIN 
+                Classificacao_Carros a ON c.id = a.carro_id
+        """
+        cursor.execute(query)
         carros = cursor.fetchall()
         return carros
     except Exception as e:
-        # Em uma aplicação real, você poderia logar o erro aqui
-        print(f"Ocorreu um erro ao buscar os carros: {e}")
-        return [] # Retorna uma lista vazia em caso de erro
+        print(f"Ocorreu um erro ao buscar carros com avaliações: {e}")
+        return []
     finally:
-        # Garante que o cursor e a conexão sejam sempre fechados
         cursor.close()
         conn.close()
 
@@ -48,6 +60,57 @@ def get_carro(id):
         return [] # Retorna uma lista vazia em caso de erro
     finally:
         # Garante que o cursor e a conexão sejam sempre fechados
+        cursor.close()
+        conn.close()
+
+        # app/core/database.py
+
+# ... (outras funções)
+
+# app/core/database.py
+
+# ... (outras funções do seu arquivo) ...
+
+def get_carros_by_ids(lista_de_ids):
+    """
+    Busca os detalhes completos dos carros, INCLUINDO SUAS AVALIAÇÕES,
+    a partir de uma lista de IDs.
+    """
+    if not lista_de_ids:
+        return []
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    try:
+        # Cria a quantidade correta de placeholders (%s) para a cláusula IN
+        format_strings = ','.join(['%s'] * len(lista_de_ids))
+        
+        # QUERY ATUALIZADA COM O JOIN
+        query = f"""
+            SELECT 
+                c.*, 
+                a.nota_preco, a.nota_espaco, a.nota_potencia, 
+                a.nota_desempenho, a.nota_consumo, a.nota_conforto
+            FROM 
+                Consulta_Carros c
+            JOIN 
+                Classificacao_Carros a ON c.id = a.carro_id
+            WHERE 
+                c.id IN ({format_strings})
+        """
+        
+        cursor.execute(query, tuple(lista_de_ids))
+        carros = cursor.fetchall()
+        
+        # Reordena o resultado para manter a ordem da recomendação
+        carros_dict = {carro['id']: carro for carro in carros}
+        carros_ordenados = [carros_dict[id] for id in lista_de_ids if id in carros_dict]
+        
+        return carros_ordenados
+    except Exception as e:
+        print(f"Erro ao buscar carros por IDs com avaliações: {e}")
+        return []
+    finally:
         cursor.close()
         conn.close()
 
